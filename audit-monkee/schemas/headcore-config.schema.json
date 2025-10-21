@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Headcore Config",
+  "type": "object",
+  "required": [
+    "site",
+    "generated_at",
+    "version",
+    "signature"
+  ],
+  "properties": {
+    "site": {
+      "type": "string",
+      "format": "uri"
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "version": {
+      "type": "string"
+    },
+    "seo": {
+      "type": "object"
+    },
+    "social": {
+      "type": "object"
+    },
+    "structured_data": {
+      "type": "array"
+    },
+    "performance": {
+      "type": "object"
+    },
+    "security": {
+      "type": "object"
+    },
+    "signature": {
+      "type": "string"
+    }
+  }
+}

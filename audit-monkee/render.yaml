@@ -1,0 +1,39 @@
+services:
+  - type: web
+    name: audit-monkee
+    env: python
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "uvicorn api.main:app --host 0.0.0.0 --port $PORT"
+    envVars:
+      - key: DATABASE_URL
+        fromService:
+          type: pserv
+          name: audit-monkee-db
+          property: connectionString
+      - key: REDIS_URL
+        fromService:
+          type: redis
+          name: audit-monkee-redis
+          property: connectionString
+      - key: JWT_SECRET
+        generateValue: true
+      - key: PSI_API_KEY
+        sync: false
+      - key: HEADCORE_PRIVATE_KEY
+        sync: false
+      - key: GHL_CLIENT_ID
+        sync: false
+      - key: GHL_CLIENT_SECRET
+        sync: false
+      - key: GHL_ACCESS_TOKEN
+        sync: false
+
+  - type: pserv
+    name: audit-monkee-db
+    env: postgres
+    databaseName: audit_monkee
+    ipAllowList: []
+
+  - type: redis
+    name: audit-monkee-redis
+    ipAllowList: []
