@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-ASTRO Client Audit Tool
+One Click SEO Client Audit Tool
 Combined SEO, Design, and Technical Analysis for New Client Onboarding
 
 Features:
@@ -67,7 +67,7 @@ class ClientAuditTool:
 
     def run_audit(self) -> Dict[str, Any]:
         """Run the complete audit."""
-        print("🚀 ASTRO Client Audit Tool")
+        print("🚀 One Click SEO Client Audit Tool")
         print(f"📋 Auditing: {self.url}")
         print(f"🏷️  Mode: {self.results['mode']}")
         print("=" * 60)
