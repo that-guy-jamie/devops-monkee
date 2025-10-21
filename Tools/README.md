@@ -12,7 +12,7 @@ The Tools directory contains organized, reusable tools for various development t
 
 ## Tool Categories
 
-### 🚀 One Click SEO Client Audit Tool (NEW)
+### 🚀 Audit Monkee - One Click SEO Client Audit Tool (NEW)
 **Location:** `/Tools/client-audit-tool.py`
 **Purpose:** Combined SEO, design, and technical analysis for new client onboarding
 **Output:** `/Output/client-audits/`
@@ -218,12 +218,12 @@ Write test outputs to:
 
 | Task | Command | Output Location |
 |------|---------|----------------|
-| **One Click SEO Audit** | `cd /Tools && python client-audit-tool.py --url URL` | `/Output/client-audits/{domain}/` |
+| **Audit Monkee** | `cd /Tools && python client-audit-tool.py --url URL` | `/Output/client-audits/{domain}/` |
 | SEO Audit | `cd /Tools/seo-tools/crawler && python advanced_crawler.py --url URL` | `/Output/seo-audits/{site}/` |
 | Optimize Images | `cd /Tools/image-tools/astro-images/scripts && python optimize-astro-images.py` | `/Output/processed-images/{project}/` |
 | Design Scan | `cd /Tools/design-tools/design-scanner && node design-scanner.js URL` | Tool folder or `/Output/design-analysis/` |
 
-**Note:** The One Click SEO Client Audit Tool combines SEO, design, and technical analysis into one comprehensive command for new client onboarding.
+**Note:** Audit Monkee (the One Click SEO Client Audit Tool) combines SEO, design, and technical analysis into one comprehensive command for new client onboarding.
 
 ---
 
