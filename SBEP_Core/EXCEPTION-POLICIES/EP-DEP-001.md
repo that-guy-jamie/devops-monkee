@@ -3,7 +3,7 @@ Version: 1.2
 Last-Updated: 2025-10-21
 
 ## Purpose
-Allow a narrowly-scoped, auditable exception to the “scripted deploys only” rule when CI/CD is unavailable and the deployment script cannot succeed.
+Allow a narrowly-scoped, auditable exception to the "scripted deploys only" rule when CI/CD is unavailable and the deployment script cannot succeed.
 
 ## When This Policy Applies
 - CI/CD service is degraded or unreachable, and
@@ -25,4 +25,3 @@ Allow a narrowly-scoped, auditable exception to the “scripted deploys only” 
 
 ## Sunset
 This exception is valid only for the specific incident. It does not authorize future manual deploys.
-

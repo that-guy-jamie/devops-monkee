@@ -1,49 +1,60 @@
-# SBEP Addendum: Reliable File Writes to WP Engine via SSH Gateway (SCP)
+# SBEP Addendum: SCP Deployment Workflow
 
-Context: On Windows hosts, long heredocs and wrapper-mediated writes can produce 0-byte files or hang. Direct SCP to the WP Engine SSH Gateway is the most reliable write path; direct SSH remains reliable for read-only checks and cache flushes.
+## Purpose
+Canonical documentation for secure file transfer using SCP over SSH Gateway with the `-O` flag for SBEP-compliant deployments.
 
-Recommended Workflow
-- Use SSH Gateway (not SFTP host) for SCP writes:
-  - Host: <env>@<env>.ssh.wpengine.net (port 22)
-  - Path: /sites/<env>/wp-content/...
-- Use legacy protocol flag when the sftp subsystem closes unexpectedly:
+## Standard SCP Command Pattern
 
+### Basic Syntax
 ```bash
-scp -O -P 22 <local-file> <env>@<env>.ssh.wpengine.net:/sites/<env>/wp-content/<dest-path>
+scp -O -P 22 -i "path/to/private_key" source_file user@host:/destination/path
 ```
 
-- Verify and flush cache via SSH:
+### SSH Gateway Configuration
+When using SSH Gateway (recommended for production environments):
 
 ```bash
-ssh -p 22 <env>@<env>.ssh.wpengine.net "ls -la /sites/<env>/wp-content/<dest-dir> && wp cache flush && echo OK"
+# Example: Upload to WP Engine via SSH Gateway
+scp -O -P 22 -i "C:\Users\username\.ssh\automation_key" \
+  local_file.php \
+  environment@environment.ssh.wpengine.net:/sites/environment/target/path/
 ```
 
-## Environment Management (CRITICAL)
+### Key Parameters
+- **`-O`**: Uses the legacy SCP protocol (required for compatibility)
+- **`-P 22`**: Specifies SSH port (standard port 22)
+- **`-i`**: Specifies private key file path
+- **Host Format**: `{environment}@{environment}.ssh.wpengine.net`
+- **Target Path**: `/sites/{environment}/{wp-path}/`
 
-**Always verify target environment before any write operations:**
+## Pre-Deployment Checklist
+- [ ] SSH key authentication configured and tested
+- [ ] Target environment and paths verified
+- [ ] File permissions appropriate for web server
+- [ ] Backup of existing files (if overwriting)
+- [ ] Deployment logged per EP-DEP-001 if manual
 
-```bash
-# Check current environment
-ssh -p 22 ownersnetwork@ownersnetwork.ssh.wpengine.net "echo 'STAGING: $(pwd)'"
-ssh -p 22 theastro1@theastro1.ssh.wpengine.net "echo 'PRODUCTION: $(pwd)'"
+## Post-Deployment Verification
+- [ ] Files transferred successfully
+- [ ] File permissions correct (typically 644 for files, 755 for directories)
+- [ ] Web application functionality verified
+- [ ] No broken links or missing assets
+- [ ] Cache cleared if applicable
 
-# Verify before SCP (check the path in command output)
-ssh -p 22 ownersnetwork@ownersnetwork.ssh.wpengine.net "ls -la /sites/ownersnetwork/wp-content/themes/" | head -3
-```
+## Security Considerations
+- Always use key-based authentication (never passwords)
+- Restrict SSH key permissions to deployment-specific paths
+- Log all manual deployments with full command audit trail
+- Rotate SSH keys periodically (quarterly recommended)
 
-**Environment-Specific Deployment Rules (Current Phase):**
-- **Staging (`ownersnetwork`)**: Known issues, avoid if possible during development
-- **Production (`theastro1`)**: Pre-production with solid backups, direct development OK during development phase
-- **Post-Launch**: Switch to staging → production workflow with manual approval
-- **Never mix environments**: Always verify SSH host and path before running SCP or deployment commands
+## Emergency Procedures
+If standard deployment scripts fail:
+1. Follow EP-DEP-001 exception policy
+2. Use SCP commands documented above
+3. Create detailed incident log
+4. Schedule post-incident review to restore automated deployments
 
-Operational Notes
-- Avoid heredocs for remote writes from this Windows host; prefer SCP.
-- Direct SSH is reliable for WP-CLI read-only and cache flush.
-- If CI is available (GitLab), prefer CI deploys for repeatable writes; SCP remains the manual fallback.
-- Quirk: If a stray leading character appears at the prompt after completion, press Enter once before running the next command to ensure a clean line.
-
-Scope
-- This addendum augments SBEP-MANIFEST Terminal Command Execution for Windows environments interacting with WP Engine.
-
-
+## Related Documentation
+- EP-DEP-001: Manual Deployment Exception Policy
+- SBEP-MANIFEST.md: Core protocol requirements
+- Individual project `sds/SBEP-MANDATE.md`: Project-specific procedures

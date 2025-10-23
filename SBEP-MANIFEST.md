@@ -1,4 +1,4 @@
-# Source-Bound Execution Protocol (SBEP) v2.1
+# Source-Bound Execution Protocol (SBEP) v2.2
 
 **Global Operating Mandate for All AI Agents**
 
@@ -6,9 +6,12 @@
 
 ## Purpose
 
-This manifest establishes the **SBEP v2.1 standard** - a documentation-first operating protocol that empowers AI agents with autonomy while enforcing accountability, safety, and best practices across all projects in this workspace.
+This manifest establishes the **SBEP v2.2 standard** - a documentation-first operating protocol that empowers AI agents with autonomy while enforcing accountability, safety, and best practices across all projects in this workspace.
 
-**Core Principle:** Read The F***ing Manual (RTFM) before attempting any task.
+**Core Principles:** 
+1. **Read The F***ing Manual (RTFM)** before attempting any task
+2. **Documentation is a Deliverable** - not an afterthought, but a primary output
+3. **Iterative Excellence** - Plan → Evaluate the Plan → Execute → Test → Evaluate → Repeat
 
 ---
 
@@ -24,7 +27,9 @@ When you begin work in `/projects/` or any subdirectory:
 4. **Review** `{project}/sds/SBEP-INDEX.yaml` to understand available documentation
 5. **ONLY THEN** begin task execution
 
-### 2. Documentation-First Approach (RTFM Mandate)
+### 2. Operational Methodology
+
+#### Documentation-First Approach (RTFM Mandate)
 
 Before claiming you cannot perform a task or asking the user for help:
 
@@ -60,6 +65,40 @@ When asking for help, you MUST provide:
 - Error messages received (full output)
 - Why each approach failed
 
+#### Plan → Evaluate the Plan → Execute → Test → Evaluate → Repeat Cycle
+
+**Every significant task must follow this iterative cycle:**
+
+1. **PLAN**: Document approach, identify resources, set success criteria
+2. **EVALUATE THE PLAN**: Review plan for completeness, feasibility, and risks before execution
+3. **EXECUTE**: Implement the validated plan with proper logging and checkpoints  
+4. **TEST**: Validate outputs, check functionality, verify against requirements
+5. **EVALUATE**: Assess results, identify improvements, document lessons learned
+6. **REPEAT**: Refine plan based on evaluation and continue iteration
+
+**Cycle Documentation Requirements:**
+- Each cycle documented with timestamp and phase results
+- Evaluation findings inform next cycle planning
+- Failed cycles require root cause analysis
+- Successful patterns documented for reuse
+
+#### Documentation as Deliverable
+
+**Documentation is not optional - it is a primary deliverable equal to code:**
+
+- **Status**: Every task produces documentation showing current state
+- **Process**: How the task was accomplished (reproducible steps)  
+- **Results**: What was achieved, metrics, validation evidence
+- **Knowledge**: Insights gained, patterns identified, future considerations
+- **Integration**: How outputs connect to broader project ecosystem
+
+**Documentation Completeness Criteria:**
+- [ ] Another agent could reproduce the work from documentation alone
+- [ ] Success/failure is objectively measurable from documentation  
+- [ ] Integration points and dependencies are clearly mapped
+- [ ] Rollback/recovery procedures are documented
+- [ ] Knowledge gained is captured for organizational learning
+
 ### 3. Autonomy with Accountability
 
 **You Have Permission To:**
@@ -70,10 +109,13 @@ When asking for help, you MUST provide:
 - Make architectural decisions aligned with best practices
 
 **You Must:**
+- **Follow the Plan → Evaluate the Plan → Execute → Test → Evaluate → Repeat cycle** for all significant work
+- **Treat documentation as a deliverable** - not an afterthought but a primary output
 - Document changes in project `CHANGELOG.md`
 - Create rollback plans for destructive operations
 - Use dry-run modes when available
 - Cite sources when implementing patterns from documentation
+- **Document each cycle phase** with timestamp, results, and evaluation
 
 **You Must NOT:**
 - Delete files without following the deprecation workflow (see Housekeeping Policy below)
@@ -208,7 +250,72 @@ All other methods described in previous versions of this document or discovered 
 - Check that no active references point to the workorder
 - Never archive incomplete workorders
 
-### 7. Cross-Project Knowledge Sharing
+### 7. Practical Implementation Templates
+
+#### Plan → Evaluate the Plan → Execute → Test → Evaluate Cycle Template
+
+```markdown
+## Cycle [N]: [Task Description]
+**Started**: [Timestamp]
+**Estimated Duration**: [Time estimate]
+
+### PLAN Phase
+**Objective**: [Specific, measurable goal]
+**Approach**: [High-level strategy]
+**Resources Needed**: [Tools, docs, dependencies]
+**Success Criteria**: [How to measure completion]
+**Risk Assessment**: [Potential issues and mitigations]
+**Dependencies**: [Prerequisites and constraints]
+
+### EVALUATE THE PLAN Phase
+**Reviewer**: [Self or peer review]
+**Plan Review**:
+- [ ] **Feasibility**: Can this plan realistically achieve the objective?
+- [ ] **Completeness**: Are all necessary steps and resources identified?
+- [ ] **Risk Mitigation**: Are risks adequately addressed?
+- [ ] **Success Criteria**: Are criteria specific, measurable, achievable?
+- [ ] **Dependencies**: Are all prerequisites satisfied or planned?
+**Plan Status**: [Approved/Needs Revision/Rejected]
+**Revisions Made**: [Changes based on evaluation]
+
+### EXECUTE Phase  
+**Started**: [Timestamp]
+**Actions Taken**:
+- [Action 1 with timestamp]
+- [Action 2 with timestamp]
+**Checkpoints**: [Validation points during execution]
+**Issues Encountered**: [Problems and immediate resolutions]
+**Plan Adherence**: [Deviations from plan and justifications]
+
+### TEST Phase
+**Started**: [Timestamp]  
+**Test Cases**:
+- [ ] [Test 1]: [Expected vs Actual]
+- [ ] [Test 2]: [Expected vs Actual]
+**Validation Results**: [Pass/Fail with evidence]
+**Performance Metrics**: [Speed, accuracy, resource usage]
+
+### EVALUATE Phase
+**Completed**: [Timestamp]
+**Success Assessment**: [Met/Not Met success criteria]
+**Lessons Learned**: [Key insights gained]
+**Improvement Opportunities**: [What could be done better]
+**Next Cycle Requirements**: [Changes for next iteration]
+**Knowledge Capture**: [Patterns, gotchas, best practices]
+```
+
+#### Documentation Deliverable Checklist
+
+**Before marking any task complete, verify:**
+- [ ] **Reproducibility**: Another agent could repeat this work from docs alone
+- [ ] **Measurability**: Success/failure is objectively documented with evidence  
+- [ ] **Integration**: Dependencies and connection points clearly mapped
+- [ ] **Recovery**: Rollback procedures documented and tested
+- [ ] **Knowledge Transfer**: Insights captured for organizational learning
+- [ ] **Traceability**: Links to source materials, decisions, and iterations
+- [ ] **Maintenance**: Update procedures and lifecycle documented
+
+### 8. Cross-Project Knowledge Sharing
 
 **Learn From:**
 - ASTRO: GHL integration patterns, WordPress deployment automation, SEO plugin architecture
@@ -258,7 +365,7 @@ The user will remind you of this protocol and ask you to retry with compliance.
 
 ## Version History
 
-- **v2.2** (2025-10-20): Clarified and hardened the mandatory terminal execution wrapper steps for PowerShell.
+- **v2.2** (2025-10-23): Complete operational framework with CI integration, link verification, document integrity checks, retention automation, and exception policies
 - **v2.1** (2025-10-20): Replaced absolute deletion prohibitions with structured deprecation workflow and retention windows
 - **v2.0** (2025-10-15): Global rollout with housekeeping policy, centralized API docs, cross-project learning
 - **v1.0** (Concept): Initial RTFM-first approach

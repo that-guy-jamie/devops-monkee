@@ -2,6 +2,17 @@
 All substantive changes to SBEP rules are tracked here.
 
 ## 2025-10-23
+- v2.2 Complete operational framework integration with CI/CD pipeline
+- v2.2 Added ops/scripts/sbep-verify-links.js for automatic link verification
+- v2.2 Added ops/scripts/sbep-doc-integrity-check.py for document corruption detection
+- v2.2 Added ops/scripts/sbep-retention-cleaner.py for automated retention management
+- v2.2 Added ops/scripts/sbep-env-guard.sh for production operation safety
+- v2.2 Added ci/.gitlab-ci.fragment.yml with test-stage quality gates
+- v2.2 Added EXCEPTION-POLICIES/EP-DEP-001.md for structured exception handling
+- v2.2 Added SBEP-ADDENDUM-SCP.md for canonical SCP deployment procedures
+- v2.2 Added housekeeping.config.json for retention and quality configuration
+- v2.2 Added .sbep-link-ignore for link verification exclusions
+- v2.2 Added package.json with operational scripts and dependencies
 - v2.1 Updated SBEP Protocol repository with deprecation workflow policy
 - v2.1 Replaced absolute "never delete" rule with structured 5-step deletion process
 - v2.1 Added retention windows for archived items (180d docs, 90d builds/artifacts)
