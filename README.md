@@ -1,4 +1,4 @@
-# Source-Bound Execution Protocol (SBEP) v2.0
+# Source-Bound Execution Protocol (SBEP) v2.1
 
 **The Documentation-First AI Agent Operating Standard**
 
@@ -29,7 +29,7 @@ Before asking for help or claiming inability, agents must:
 ## Quick Start
 
 ### For AI Agents
-1. Read `SBEP-MANIFEST.md` (the complete protocol)
+1. Read `SBEP-MANIFEST.md` (the complete protocol v2.1)
 2. Navigate to your project's `sds/SBEP-MANDATE.md` 
 3. Review `sds/SBEP-INDEX.yaml` for documentation inventory
 4. Begin task execution following SBEP guidelines
@@ -106,7 +106,7 @@ Every SBEP-compliant project should have:
 ## Version History
 
 - **v2.2** (2025-10-20): Hardened terminal execution for Windows PowerShell
-- **v2.1** (2025-10-18): Added housekeeping automation and temp file management
+- **v2.1** (2025-10-23): Replaced "never delete" rule with structured deprecation workflow and retention windows
 - **v2.0** (2025-10-15): Global rollout with centralized API documentation
 - **v1.0**: Initial RTFM-first approach
 

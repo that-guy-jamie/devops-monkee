@@ -1,43 +1,51 @@
-# Housekeeping Standard Operating Procedure (SOP)
+# SBEP Housekeeping Standard Operating Procedure
 
-**SBEP v2.0 Protocol**  
-**Version:** 1.0  
-**Last Updated:** October 18, 2025
+## Overview
 
----
-
-## Purpose
-
-This document defines the standard operating procedure for maintaining a clean, organized workspace in the Projects directory. Regular housekeeping ensures:
-- Completed work is properly archived
-- Temporary files don't clutter the workspace
-- Active work is easy to find
-- SBEP v2.0 compliance is maintained
+This document defines the standard housekeeping practices for SBEP-compliant projects to maintain clean, organized, and efficient workspaces.
 
 ---
 
-## When to Perform Housekeeping
+## Principles
+- Prefer **deprecation workflow** over hard bans.
+- Optimize for safety, traceability, and repo performance.
 
-### Automatic Triggers (AI Agents)
-Perform housekeeping when:
-- ✅ A workorder is marked complete
-- ✅ A major phase is finished (Phase 1, Phase 2, etc.)
-- ✅ Testing phase is complete and implementation is verified
-- ✅ Before committing major changes to git
-- ✅ After creating many temporary output files
+## Retention & Archive
+- Moves to `/archive` are allowed with an **index entry** (see Archive Index below).
+- Default retention windows (override per-project via `housekeeping.config.json`):
+  - `/archive/docs`: 180 days
+  - `/archive/builds`: 90 days
+  - `/archive/artifacts`: 90 days
+- After retention, items may be purged by `ops/scripts/sbep-retention-cleaner.py` (dry-run by default).
 
-### Manual Triggers (Developers)
-Run housekeeping when:
-- Workspace feels cluttered
-- Difficult to find active work
-- Before starting a new project
-- Monthly maintenance routine
+## Deletion Workflow
+Deletion is allowed **only** via deprecation workflow:
+1. Ticket with impact note.
+2. Backup/export or Git tag cut.
+3. Migration applied (if applicable).
+4. Reviewer sign-off.
+5. Purge via cleaner with `--apply` flag.
 
-### DO NOT Run Housekeeping When:
-- ❌ In the middle of active development
-- ❌ Testing is in progress (temp files may be needed)
-- ❌ Before debugging failed operations
-- ❌ When work status is unclear
+## Link Integrity
+Before moving/purging any docs, run:
+```
+node ops/scripts/sbep-verify-links.js --fix
+```
+CI will block merges if broken internal links remain.
+
+## Instruction Files
+Instructional docs may be moved **when** references are auto-updated by the link verifier.
+Do not move without running the verifier and committing its changes.
+
+## Work-in-Progress Guard
+Housekeeping refuses to run if any `workorders/status.json` item is `"state":"in_progress"`.
+Use `--force` to override (logged).
+
+## Archive Index
+Maintain `/archive/archive-index.json` entries for moved items:
+```json
+{ "path": "docs/old.md", "new_path": "archive/docs/old.md", "moved_at": "2025-10-20" }
+```
 
 ---
 
@@ -89,11 +97,11 @@ Archive/
 └── scripts/        # Deprecated/outdated scripts
 ```
 
-### Instruction Files (NEVER MOVE)
+### Protected Files
 
 **Location:** `/` (root only)
 
-**Protected Files:**
+**Files requiring deprecation workflow:**
 - `SBEP-MANIFEST.md` - Core protocol
 - `DOCUMENTATION-INDEX.md` - Doc reference
 - `README.md` - Project overview
@@ -123,20 +131,6 @@ cd C:\Users\james\Desktop\Projects
 .\SBEP_Core\Invoke-ProjectHousekeeping.ps1
 ```
 
-**Skip Specific Phases:**
-```powershell
-# Skip workorder archival (just clean temp files)
-.\SBEP_Core\Invoke-ProjectHousekeeping.ps1 -SkipWorkorders
-
-# Skip temp file cleanup (just archive workorders)
-.\SBEP_Core\Invoke-ProjectHousekeeping.ps1 -SkipTempFiles
-```
-
-**Verbose Output:**
-```powershell
-.\SBEP_Core\Invoke-ProjectHousekeeping.ps1 -Verbose
-```
-
 ### What the Script Does
 
 1. **Phase 1: Archive Completed Workorders**
@@ -144,19 +138,15 @@ cd C:\Users\james\Desktop\Projects
    - Checks content for completion markers (✅, Status: Complete)
    - Moves completed workorders to `/Workorders/Archive/`
    - Archives associated CSV/data files
-   - Checks project folders for completion documents
 
 2. **Phase 2: Organize Temporary Files**
-   - Moves `*.txt` temp files to `.tmp/`
-   - Moves test output HTML files
-   - Moves command scratch files
+   - Moves eligible temp files to `.tmp/`
    - Preserves important logs (error, session, deploy)
+   - Respects retention windows
 
-3. **Phase 3: Organize Archive Structure**
-   - Creates subdirectories in `/Archive/`
-   - Organizes housekeeping zips
-   - Organizes project archives
-   - Maintains clean structure
+3. **Phase 3: Apply Retention Policy**
+   - Reviews archived items against retention windows
+   - Flags items eligible for purging (dry-run by default)
 
 ---
 
@@ -174,22 +164,15 @@ cd C:\Users\james\Desktop\Projects
 7. Document housekeeping in completion notes
 ```
 
-### After Testing Phase
+### Before Deleting Files
 
 ```markdown
-1. Verify all tests passed
-2. Confirm test outputs are no longer needed
-3. Run housekeeping to move test outputs to .tmp/
-4. Keep error logs if any tests failed
-```
-
-### Before Major Commits
-
-```markdown
-1. Run housekeeping to clean workspace
-2. Review git status
-3. Ensure only intentional changes are staged
-4. Commit with clean workspace
+1. Follow the 5-step deprecation workflow
+2. Create ticket with impact assessment
+3. Create backup or git tag
+4. Apply any necessary migrations
+5. Get reviewer sign-off
+6. Execute deletion with explicit --apply flag
 ```
 
 ### Template for Completion Notes
@@ -202,39 +185,10 @@ cd C:\Users\james\Desktop\Projects
 
 **Summary:**
 - Files archived: [count]
-- Temp files organized: [count]
+- Temp files organized: [count] 
+- Retention policy applied: [yes/no]
 - Workspace status: Clean ✅
 ```
-
----
-
-## Manual Housekeeping Checklist
-
-If the script cannot be used, follow this manual checklist:
-
-### Step 1: Archive Workorders
-- [ ] Review `/Workorders/` for completed workorders
-- [ ] Move completed workorders to `/Workorders/Archive/`
-- [ ] Move associated CSV/data files
-- [ ] Check project folders for completion documents
-- [ ] Move to `{project}/archive/`
-
-### Step 2: Organize Temp Files
-- [ ] Review root directory for temp files
-- [ ] Move to `.tmp/` folder
-- [ ] Preserve error logs and important outputs
-
-### Step 3: Clean Archive
-- [ ] Ensure `/Archive/` subdirectories exist
-- [ ] Organize housekeeping zips
-- [ ] Organize project archives
-- [ ] Remove empty legacy folders
-
-### Step 4: Verify
-- [ ] Workorders folder clean
-- [ ] Root contains only instruction files
-- [ ] Temp files organized
-- [ ] Archive properly structured
 
 ---
 
@@ -248,78 +202,21 @@ If the script cannot be used, follow this manual checklist:
 ### Accidentally Moved Important File
 - Check `/Archive/` subdirectories
 - Check `.tmp/` folder
-- Files are never deleted, only moved
-- Restore from appropriate location
+- Check `/archive/archive-index.json` for move history
+- Files are moved, not deleted - restore from appropriate location
 
-### Unsure if File is Complete
-- Open the file and check for completion markers
-- Look for "Status: Complete" or "✅ Complete"
-- If unsure, leave in active location
-- Better to review later than archive prematurely
-
-### Script Errors
-- Run with `-DryRun` first to preview
-- Check error messages for specific issues
-- Verify paths exist and are accessible
-- Ensure no files are locked or in use
-
----
-
-## Maintenance Schedule
-
-### Weekly (Automated via Task Scheduler - Future)
-- Run housekeeping script
-- Archive completed workorders from past week
-- Clean temporary files
-
-### Monthly (Manual Review)
-- Review archive structure
-- Verify important docs not accidentally archived
-- Clean up old temporary files (>30 days)
-- Update this SOP if needed
-
-### Quarterly (Deep Clean)
-- Review all archived content
-- Compress old archives
-- Update documentation
-- Audit SBEP compliance
-
----
-
-## Related Documentation
-
-- **Core Protocol:** `/SBEP-MANIFEST.md`
-- **Project Organization:** `/PROJECT-ORGANIZATION-GUIDE.md`
-- **Completion Report:** `/PROJECTS-ORGANIZATION-COMPLETE.md`
-- **Script Location:** `/SBEP_Core/Invoke-ProjectHousekeeping.ps1`
-- **SBEP Core Index:** `/SBEP_Core/SBEP-CORE-INDEX.yaml`
+### Link Verification Failures
+- Run `node ops/scripts/sbep-verify-links.js --fix`
+- Review broken links in CI output
+- Update references before completing moves
 
 ---
 
 ## Version History
 
+- **v2.1** (2025-10-20): Added deprecation workflow, retention windows, link integrity checks
 - **v1.0** (2025-10-18): Initial SOP created
-  - Defined housekeeping triggers
-  - Created automated script
-  - Established file organization rules
-  - Set up archive structure
 
 ---
 
-## Questions?
-
-**For AI Agents:**
-- Read `/SBEP-MANIFEST.md` for core protocol
-- Check project-specific `sds/SBEP-MANDATE.md`
-- Review this SOP before housekeeping operations
-
-**For Developers:**
-- This is an established pattern
-- Script is safe and tested
-- Always run `-DryRun` first if unsure
-- Contact project maintainer with questions
-
----
-
-**Remember:** Clean workspace = Clear mind = Better code ✨
-
+**Remember:** Structured processes prevent data loss and maintain system integrity ✨

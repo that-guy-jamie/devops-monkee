@@ -1,4 +1,4 @@
-# Source-Bound Execution Protocol (SBEP) v2.0
+# Source-Bound Execution Protocol (SBEP) v2.1
 
 **Global Operating Mandate for All AI Agents**
 
@@ -6,7 +6,7 @@
 
 ## Purpose
 
-This manifest establishes the **SBEP v2.0 standard** - a documentation-first operating protocol that empowers AI agents with autonomy while enforcing accountability, safety, and best practices across all projects in this workspace.
+This manifest establishes the **SBEP v2.1 standard** - a documentation-first operating protocol that empowers AI agents with autonomy while enforcing accountability, safety, and best practices across all projects in this workspace.
 
 **Core Principle:** Read The F***ing Manual (RTFM) before attempting any task.
 
@@ -76,7 +76,7 @@ When asking for help, you MUST provide:
 - Cite sources when implementing patterns from documentation
 
 **You Must NOT:**
-- Delete files (archive to `/projects/archive/{project}-housekeeping-{date}.zip` instead)
+- Delete files without following the deprecation workflow (see Housekeeping Policy below)
 - Use quick fixes over proper solutions
 - Skip reading documentation
 - Claim inability without evidence of attempts
@@ -90,8 +90,8 @@ When asking for help, you MUST provide:
 - Entry in project CHANGELOG
 
 **Housekeeping Policy:**
-- Never delete obsolete files
-- Move to `/projects/archive/` organized by project
+- Perform deletions exclusively through the **deprecation workflow** with backups, migration notes, and reviewer sign-off
+- Move files to `/projects/archive/` organized by project with retention windows
 - Archive completed workorders to `/Workorders/Archive/` or `{project}/archive/`
 - Move temporary files to `/.tmp/` or `{project}/.tmp/`
 - Run housekeeping script: `/SBEP_Core/Invoke-ProjectHousekeeping.ps1`
@@ -259,7 +259,7 @@ The user will remind you of this protocol and ask you to retry with compliance.
 ## Version History
 
 - **v2.2** (2025-10-20): Clarified and hardened the mandatory terminal execution wrapper steps for PowerShell.
-- **v2.1** (2025-10-18): Added housekeeping automation, temp file organization, SBEP Core documentation
+- **v2.1** (2025-10-20): Replaced absolute deletion prohibitions with structured deprecation workflow and retention windows
 - **v2.0** (2025-10-15): Global rollout with housekeeping policy, centralized API docs, cross-project learning
 - **v1.0** (Concept): Initial RTFM-first approach
 
