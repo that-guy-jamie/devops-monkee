@@ -1,0 +1,172 @@
+# SBEP Core Documentation Index
+# Version: 1.0
+# Last Updated: 2025-10-18
+
+title: "SBEP Core - Standard Operating Procedures and Tools"
+description: "Central repository for cross-project SBEP protocol files, scripts, and documentation"
+
+core_files:
+  manifest:
+    path: "/SBEP-MANIFEST.md"
+    description: "Global operating mandate for all AI agents"
+    version: "2.0"
+    required_reading: true
+    
+  housekeeping_sop:
+    path: "/SBEP_Core/HOUSEKEEPING-SOP.md"
+    description: "Standard Operating Procedure for workspace organization and cleanup"
+    version: "1.0"
+    when_to_read: "Before performing housekeeping or after completing major tasks"
+    
+  housekeeping_script:
+    path: "/SBEP_Core/Invoke-ProjectHousekeeping.ps1"
+    description: "Automated housekeeping script for archiving completed work and organizing temp files"
+    version: "1.0"
+    usage: ".\SBEP_Core\Invoke-ProjectHousekeeping.ps1 -DryRun"
+    
+  init_script:
+    path: "/SBEP_Core/SBEP-INIT.ps1"
+    description: "Initialization script for new agents (if needed)"
+    status: "available"
+
+scripts:
+  housekeeping:
+    name: "Invoke-ProjectHousekeeping.ps1"
+    purpose: "Archive completed workorders, organize temp files, maintain clean workspace"
+    parameters:
+      - name: "DryRun"
+        type: "switch"
+        description: "Preview changes without making them"
+      - name: "SkipWorkorders"
+        type: "switch"
+        description: "Skip workorder archival phase"
+      - name: "SkipTempFiles"
+        type: "switch"
+        description: "Skip temporary file cleanup phase"
+    when_to_run:
+      - "After completing a workorder or major task"
+      - "After testing phase is complete"
+      - "Before committing to git"
+      - "When workspace feels cluttered"
+      - "Monthly maintenance"
+
+file_organization:
+  temporary_files:
+    root_location: "/.tmp/"
+    project_location: "{project}/.tmp/"
+    what_goes_here:
+      - "Test output files (output.txt, test-output.html)"
+      - "Directory listings (dir.txt, cortex-dir.txt)"
+      - "Scratch/command files"
+      - "Temporary logs (non-error)"
+      - "Files ending in -temp.txt or .tmp"
+    
+  workorder_archives:
+    global_location: "/Workorders/Archive/"
+    project_location: "{project}/archive/"
+    what_goes_here:
+      - "Completed workorders (filename or content contains COMPLETE)"
+      - "Completion summaries"
+      - "CSV/data files from completed campaigns"
+      - "Phase completion documents"
+    
+  main_archive:
+    location: "/Archive/"
+    subdirectories:
+      workorders: "Completed global workorder archives"
+      projects: "Old project zips and archives"
+      housekeeping: "Housekeeping operation archives"
+      scripts: "Deprecated/outdated scripts"
+    
+  protected_files:
+    location: "/" 
+    description: "NEVER move these files - they are core instruction documents"
+    patterns:
+      - "SBEP-MANIFEST.md"
+      - "DOCUMENTATION-INDEX.md"
+      - "README.md"
+      - "LSA-*.md"
+      - "PROJECT-*.md"
+      - "AGENT-*.md"
+      - "*-COMPLETE.md (status documents)"
+      - ".env, .cursorrules (config files)"
+
+standard_procedures:
+  after_task_completion:
+    - "Mark workorder as complete (add Status: ✅ Complete)"
+    - "Create completion summary if needed"
+    - "Run housekeeping script with -DryRun first"
+    - "Review what will be moved"
+    - "Run actual housekeeping"
+    - "Verify workspace is clean"
+    - "Document housekeeping in completion notes"
+    
+  after_testing:
+    - "Verify all tests passed"
+    - "Confirm test outputs no longer needed"
+    - "Run housekeeping to move test outputs to .tmp/"
+    - "Keep error logs if any tests failed"
+    
+  before_major_commits:
+    - "Run housekeeping to clean workspace"
+    - "Review git status"
+    - "Ensure only intentional changes staged"
+    - "Commit with clean workspace"
+
+maintenance_schedule:
+  weekly:
+    - "Run housekeeping script (automated via Task Scheduler in future)"
+    - "Archive completed workorders from past week"
+    - "Clean temporary files"
+    
+  monthly:
+    - "Review archive structure"
+    - "Verify important docs not accidentally archived"
+    - "Clean up old temporary files (>30 days)"
+    - "Update SOP if needed"
+    
+  quarterly:
+    - "Review all archived content"
+    - "Compress old archives"
+    - "Update documentation"
+    - "Audit SBEP compliance"
+
+troubleshooting:
+  file_in_use_errors:
+    - "Close editors or tools accessing the file"
+    - "Ensure no processes reading the file"
+    - "Try again after closing applications"
+    
+  accidentally_moved_file:
+    - "Check /Archive/ subdirectories"
+    - "Check .tmp/ folder"
+    - "Files never deleted, only moved"
+    - "Restore from appropriate location"
+    
+  unsure_if_complete:
+    - "Open file and check for completion markers"
+    - "Look for 'Status: Complete' or '✅ Complete'"
+    - "If unsure, leave in active location"
+    - "Better to review later than archive prematurely"
+
+related_documentation:
+  - path: "/SBEP-MANIFEST.md"
+    description: "Core protocol"
+  - path: "/PROJECT-ORGANIZATION-GUIDE.md"
+    description: "General organization guidelines"
+  - path: "/PROJECTS-ORGANIZATION-COMPLETE.md"
+    description: "Latest organization completion report"
+  - path: "{project}/sds/SBEP-MANDATE.md"
+    description: "Project-specific instructions"
+  - path: "{project}/sds/SBEP-INDEX.yaml"
+    description: "Project-specific documentation index"
+
+version_history:
+  - version: "1.0"
+    date: "2025-10-18"
+    changes:
+      - "Initial SBEP Core documentation"
+      - "Created housekeeping SOP and script"
+      - "Established file organization rules"
+      - "Defined maintenance schedules"
+

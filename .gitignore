@@ -1,0 +1,67 @@
+# SBEP Protocol Repository .gitignore
+
+# Temporary files and outputs
+*.tmp
+.tmp/
+**/.tmp/
+last-output.txt
+*.log
+
+# System files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Node modules (if any SBEP tools use Node)
+node_modules/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Project-specific exclusions
+secrets/
+*.json.secret
+*-secret.*
+
+# Build outputs
+dist/
+build/
+output/
+
+# Archive folders (these are preserved but not version controlled)
+Archive/
+archive/
+*/archive/
+**/archive/
+
+# Temp agent tools
+.cursor/.agent-tools/last-output.txt
+
+# Test outputs and temp files
+test-*.txt
+temp-*.txt
+scratch-*.txt
+
+# Large data files that shouldn't be versioned
+*.zip
+*.tar.gz
+*.rar
+
+# Workorder archives (completed workorders are archived, not versioned)
+Workorders/Completed*/
+**/workorders/Completed*/

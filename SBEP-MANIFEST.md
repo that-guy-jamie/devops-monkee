@@ -92,8 +92,11 @@ When asking for help, you MUST provide:
 **Housekeeping Policy:**
 - Never delete obsolete files
 - Move to `/projects/archive/` organized by project
-- Compress per-project: `{project}-housekeeping-{MMDDYYYY}.zip`
-- Include manifest listing archived files and reasons
+- Archive completed workorders to `/Workorders/Archive/` or `{project}/archive/`
+- Move temporary files to `/.tmp/` or `{project}/.tmp/`
+- Run housekeeping script: `/SBEP_Core/Invoke-ProjectHousekeeping.ps1`
+- **When to run:** After completing tasks, after testing, before commits
+- **Full SOP:** `/SBEP_Core/HOUSEKEEPING-SOP.md`
 
 ### 5. Best Practices Over Quick Fixes
 
@@ -109,65 +112,70 @@ When asking for help, you MUST provide:
 - Undocumented "magic"
 - Non-portable solutions
 
-### 6. Terminal Command Execution (CRITICAL)
+### 6. Terminal Command Execution (CRITICAL) ⚠️ THE ONLY FLAWLESS PROCESS FOR WINDOWS
 
-**The Problem:**
-Cursor terminal output is not always captured or visible to the agent, making debugging impossible.
+**MANDATORY AND FLAWLESS PROCESS - VERIFIED OCTOBER 20, 2025**
 
-**The Solution (MANDATORY FOR ALL COMMANDS):**
+**THIS IS THE ONLY WAY. DO NOT DEVIATE.**
 
-Always redirect terminal commands to a capture file:
+All terminal commands that require output MUST be executed using the following two-step procedure involving the Python wrapper. The first step executes the command; the second step retrieves the result. You MUST perform both steps in sequence within the same turn.
 
+---
+
+**STEP 1: Execute Command via Python Wrapper & Redirect Output**
+
+Use `run_terminal_cmd` to `echo` a JSON payload containing your command and current working directory (`cwd`), pipe it to the `run_capture.py` script, and redirect all output to `last-output.txt`.
+
+**SYNTAX (for PowerShell):**
+```powershell
+echo '{"cmd": "YOUR_COMMAND_HERE", "cwd": "C:\\path\\to\\your\\directory"}' | python .cursor/.agent-tools/run_capture.py > C:\\Users\\james\\Desktop\\Projects\\.cursor\\.agent-tools\\last-output.txt 2>&1
 ```
-COMMAND > C:\Users\james\Desktop\Projects\.cursor\.agent-tools\last-output.txt 2>&1 && type C:\Users\james\Desktop\Projects\.cursor\.agent-tools\last-output.txt
-```
 
-If `type` fails to display, immediately follow with:
+**EXPECTATION:**
+This command **WILL** return a "Command was interrupted" message. **THIS IS NORMAL AND EXPECTED.** The command has executed successfully in the background. **DO NOT** stop. **DO NOT** try to run it again. Immediately proceed to Step 2.
+
+---
+
+**STEP 2: Read the Result File**
+
+Use the `read_file` tool to get the contents of `last-output.txt`.
+
+**SYNTAX:**
 ```
 read_file("C:/Users/james/Desktop/Projects/.cursor/.agent-tools/last-output.txt")
 ```
 
-**Key Points:**
-- `> file` redirects stdout
-- `2>&1` also captures stderr (CRITICAL for errors)
-- `&& type file` displays the output
-- If display fails, use `read_file` tool as backup
-- Use the same file (`last-output.txt`) - it overwrites each time
+**EXPECTATION:**
+The result will be a JSON string containing `exitCode`, `stdout`, and `stderr`. You must parse this JSON to determine the outcome of your command in Step 1. An `exitCode` of `0` and empty `stderr` typically means success. The command's actual output is in the `stdout` field.
 
-**Windows Command Prompt "q" Prefix Bug:**
-Commands may randomly get prefixed with "q" causing failures:
-```cmd
-qgit status  # 'qgit' is not recognized
+---
+
+**COMPLETE EXAMPLE IN A SINGLE TURN:**
+
+```xml
+<tool_code>
+<tool_name>run_terminal_cmd</tool_name>
+<parameters>
+  <command>echo '{"cmd": "git status", "cwd": "C:\\Users\\james\\Desktop\\Projects\\astro"}' | python .cursor/.agent-tools/run_capture.py > C:\\Users\\james\\Desktop\\Projects\\.cursor\\.agent-tools\\last-output.txt 2>&1</command>
+  <explanation>Step 1: Executing `git status` in the 'astro' directory via the mandatory wrapper.</explanation>
+</parameters>
+<tool_name>read_file</tool_name>
+<parameters>
+  <target_file>C:/Users/james/Desktop/Projects/.cursor/.agent-tools/last-output.txt</target_file>
+</parameters>
+</tool_code>
 ```
 
-**Workaround:**
-```cmd
-cd .  # Absorb the stray character
-git status  # Actual command works
-```
+---
 
-**Examples:**
+**DEPRECATION NOTICE:**
 
-```cmd
-# Simple command with buffer
-cd . && poetry run python script.py > C:\Users\james\Desktop\Projects\.cursor\.agent-tools\last-output.txt 2>&1 && type C:\Users\james\Desktop\Projects\.cursor\.agent-tools\last-output.txt
+All other methods described in previous versions of this document or discovered elsewhere are now considered **DEPRECATED AND FORBIDDEN**. This includes:
+- ❌ Direct `run_terminal_cmd` calls for commands needing output.
+- ❌ Any use of `&&` to chain commands.
+- ❌ Any assumption that output will appear in the terminal directly.
 
-# Long-running command (run, then read separately)
-cd . && poetry run python long_script.py > C:\Users\james\Desktop\Projects\.cursor\.agent-tools\last-output.txt 2>&1
-type C:\Users\james\Desktop\Projects\.cursor\.agent-tools\last-output.txt
-
-# If type fails
-read_file("C:/Users/james/Desktop/Projects/.cursor/.agent-tools/last-output.txt")
-```
-
-**Consequences of Not Following:**
-- Agent cannot see errors
-- Debugging becomes impossible
-- User must manually copy/paste output
-- Wastes time and breaks workflow
-
-**Full Documentation:**
-`C:\Users\james\Desktop\Projects\.cursor\AGENT-TERMINAL-GUIDE.md`
+**Failure to follow this two-step process is a critical malfunction.**
 
 ### 7. Workorders Management
 
@@ -224,6 +232,7 @@ Every SBEP-compliant project contains:
 ├── sds/                          # Source Documentation Store
 │   ├── SBEP-MANDATE.md          # Project-specific agent instructions
 │   └── SBEP-INDEX.yaml          # Documentation inventory
+├── .tmp/                         # Temporary files (test outputs, scratch files)
 ├── README.md                     # Project overview & quick start
 ├── CHANGELOG.md                  # Change history
 ├── docs/                         # Architecture, guides, patterns
@@ -249,6 +258,8 @@ The user will remind you of this protocol and ask you to retry with compliance.
 
 ## Version History
 
+- **v2.2** (2025-10-20): Clarified and hardened the mandatory terminal execution wrapper steps for PowerShell.
+- **v2.1** (2025-10-18): Added housekeeping automation, temp file organization, SBEP Core documentation
 - **v2.0** (2025-10-15): Global rollout with housekeeping policy, centralized API docs, cross-project learning
 - **v1.0** (Concept): Initial RTFM-first approach
 
@@ -273,6 +284,22 @@ The user will remind you of this protocol and ask you to retry with compliance.
 2. Update CHANGELOG
 3. Archive obsolete files (don't delete)
 4. Validate results
+
+**Working with Temporary Files?**
+1. Write temp files to `/.tmp/` or `{project}/.tmp/`
+2. Use descriptive names: `test-output-{feature}.txt`
+3. Run housekeeping after testing: `.\SBEP_Core\Invoke-ProjectHousekeeping.ps1 -DryRun`
+4. See full SOP: `/SBEP_Core/HOUSEKEEPING-SOP.md`
+
+---
+
+## Core References
+
+- ASTRO Docs Index → `/docs/index.md`
+- Agent Prompt Addendum → `/docs/AGENT-PROMPT-ADDENDUM.md`
+- `SBEP_Core/HOUSEKEEPING-SOP.md`
+- `SBEP_Core/EXCEPTION-POLICIES/EP-DEP-001.md`
+- `SBEP_Core/SBEP-POLICY-CHANGELOG.md`
 
 ---
 
