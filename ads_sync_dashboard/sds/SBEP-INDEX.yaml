@@ -1,6 +1,6 @@
 version: "2.2"
-project: "{PROJECT_NAME}"
-last_updated: "{ISO_DATE}"
+project: "ads_sync_dashboard"
+last_updated: "2025-10-15"
 sbep_compliance: true
 
 # Documentation Inventory
@@ -12,19 +12,19 @@ documentation:
     - path: "README.md"
       description: "Project overview, architecture, and quick start guide"
       priority: "critical"
-      last_reviewed: "{ISO_DATE}"
+      last_reviewed: "2025-10-15"
       type: "markdown"
     
     - path: "sds/SBEP-MANDATE.md"
       description: "Project-specific agent operating instructions"
       priority: "critical"
-      last_reviewed: "{ISO_DATE}"
+      last_reviewed: "2025-10-15"
       type: "markdown"
       
     - path: "CHANGELOG.md"
       description: "Project change history and version notes"
       priority: "high"
-      last_reviewed: "{ISO_DATE}"
+      last_reviewed: "2025-10-15"
       type: "markdown"
 
   architecture:
@@ -176,7 +176,7 @@ cross_project_patterns:
 # Maintenance Notes
 
 maintenance:
-  index_last_generated: "{ISO_DATE}"
+  index_last_generated: "2025-10-15"
   index_generated_by: "SBEP-INIT.ps1"
   manual_updates_required: true
   update_frequency: "After adding new docs or major changes"

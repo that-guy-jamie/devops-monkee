@@ -1,4 +1,4 @@
-# {PROJECT_NAME} - SBEP Mandate v2.0
+# {PROJECT_NAME} - SBEP Mandate v2.2
 
 **Project-Specific Operating Instructions for AI Agents**
 

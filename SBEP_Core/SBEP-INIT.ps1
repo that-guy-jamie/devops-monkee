@@ -1,10 +1,10 @@
 #!/usr/bin/env pwsh
 <#
 .SYNOPSIS
-    SBEP v2.0 Project Initialization Script
+    SBEP v2.2 Project Initialization Script
 
 .DESCRIPTION
-    Initializes a project with Source-Bound Execution Protocol (SBEP) v2.0 compliance.
+    Initializes a project with Source-Bound Execution Protocol (SBEP) v2.2 compliance.
     Creates /sds/ directory, copies templates, generates documentation index, and performs
     housekeeping by archiving obsolete files.
 
@@ -27,7 +27,7 @@
     .\SBEP-INIT.ps1 -ProjectPath C:\Users\james\Desktop\Projects\astro -Rollback -Timestamp 20251015-143022
 
 .NOTES
-    Version: 2.0
+    Version: 2.2
     Author: SBEP Implementation Team
     Created: 2025-10-15
 #>

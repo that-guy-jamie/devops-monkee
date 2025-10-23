@@ -1,4 +1,4 @@
-# audit-monkee - SBEP Mandate v2.0
+# audit-monkee - SBEP Mandate v2.2
 
 **Project-Specific Operating Instructions for AI Agents**
 
@@ -177,6 +177,7 @@ Agent performance is measured by:
 
 ## Version History
 
+- **v2.2** (2025-10-23): SBEP v2.2 compliance with complete operational framework
 - **v2.0** (2025-10-21): SBEP v2.0 compliance, GHL API integration focus
 - **v1.0** (Project init): Initial project setup
 
