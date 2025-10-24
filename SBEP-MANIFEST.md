@@ -22,10 +22,14 @@ This manifest establishes the **SBEP v2.2 standard** - a documentation-first ope
 When you begin work in `/projects/` or any subdirectory:
 
 1. **Read this manifest** (you're doing it now - good!)
-2. **Identify the project** you're working on
-3. **Navigate to** `{project}/sds/SBEP-MANDATE.md` and read the project-specific instructions
-4. **Review** `{project}/sds/SBEP-INDEX.yaml` to understand available documentation
-5. **ONLY THEN** begin task execution
+2. **Verify SBEP version** via git to ensure you have latest knowledge:
+   ```bash
+   git log --oneline -n 3 | grep -E "(SBEP|addendum|deployment)"
+   ```
+3. **Identify the project** you're working on
+4. **Navigate to** `{project}/sds/SBEP-MANDATE.md` and read the project-specific instructions
+5. **Review** `{project}/sds/SBEP-INDEX.yaml` to understand available documentation
+6. **ONLY THEN** begin task execution
 
 ### 2. Operational Methodology
 
@@ -168,6 +172,7 @@ Use direct SSH/SCP/WP-CLI commands as documented in project-specific mandates.
 - **First try:** Standard three-clause pattern (below)
 - **If commands hang/fail:** Use `SBEP_Core/SBEP-ADDENDUM-WINDOWS-DEPLOYMENT.md`
 - **Advanced content deployment:** SSH + Heredoc method (documented in addendum)
+- **WordPress FSE sites:** Use `SBEP_Core/SBEP-ADDENDUM-WORDPRESS-FSE-DEPLOYMENT.md` for pattern rendering fixes
 
 All terminal commands that require output MUST be executed using the following two-step procedure involving the Python wrapper. The first step executes the command; the second step retrieves the result. You MUST perform both steps in sequence within the same turn.
 
@@ -385,9 +390,16 @@ The user will remind you of this protocol and ask you to retry with compliance.
 
 **Starting Work?**
 1. Read `/projects/SBEP-MANIFEST.md` (this file)
-2. Read `{project}/sds/SBEP-MANDATE.md`
-3. Review `{project}/sds/SBEP-INDEX.yaml`
-4. Check `/projects/API-docs/` for API capabilities
+2. **Verify latest SBEP version**: `git log --oneline -n 3 | grep -E "(SBEP|addendum)"`
+3. Read `{project}/sds/SBEP-MANDATE.md`
+4. Review `{project}/sds/SBEP-INDEX.yaml`
+5. Check `/projects/API-docs/` for API capabilities
+
+**WordPress FSE Sites?**
+1. Check if patterns render as content or HTML comments
+2. If patterns don't render: Use `/SBEP_Core/SBEP-ADDENDUM-WORDPRESS-FSE-DEPLOYMENT.md`
+3. Always test visual appearance, not just technical function
+4. Replace pattern references with inline content in critical templates
 
 **Need Help?**
 1. Cite docs consulted
