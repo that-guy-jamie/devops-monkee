@@ -161,7 +161,35 @@ related_documentation:
   - path: "{project}/sds/SBEP-INDEX.yaml"
     description: "Project-specific documentation index"
 
+addendum_documentation:
+  - file: "SBEP-ADDENDUM-SCP.md"
+    description: "SCP deployment workflow and SSH Gateway configuration"
+    priority: "high"
+    when_needed: "Manual deployment exceptions"
+    
+  - file: "SBEP-ADDENDUM-WINDOWS-DEPLOYMENT.md"
+    description: "Windows/Cursor terminal execution workarounds and SSH heredoc methods"
+    priority: "high"
+    when_needed: "Windows systems with Cursor terminal execution issues - CONDITIONAL USE ONLY"
+    conditional: true
+    note: "Use only when standard SSH/WP-CLI methods fail. Not a universal replacement."
+    
+  - file: "SBEP-ADDENDUM-WORDPRESS-FSE-DEPLOYMENT.md"
+    description: "WordPress Full Site Editing pattern rendering solutions and visual QA"
+    priority: "critical"
+    when_needed: "WordPress sites where patterns show as HTML comments instead of rendering visually"
+    validated: "2025-10-24 ownersnetworkd.wpengine.com"
+    critical_discovery: "Pattern references vs inline content - fixes 'technically works but not pretty' issue"
+
 version_history:
+  - version: "1.1"
+    date: "2025-10-24"
+    changes:
+      - "Added WordPress FSE deployment addendum"
+      - "Integrated git version confirmation process"
+      - "Documented pattern rendering solutions"
+      - "Added visual QA requirements for WordPress sites"
+      
   - version: "1.0"
     date: "2025-10-18"
     changes:
@@ -169,4 +197,11 @@ version_history:
       - "Created housekeeping SOP and script"
       - "Established file organization rules"
       - "Defined maintenance schedules"
+
+git_version_confirmation:
+  purpose: "Ensure agents have latest SBEP knowledge before starting work"
+  command: "git log --oneline -n 3 | grep -E '(SBEP|addendum|deployment)'"
+  expected_output: "Recent commits containing SBEP updates, addenda, or deployment improvements"
+  frequency: "Before starting any new workorder or major task"
+  why_needed: "SBEP documentation evolves rapidly - agents must have current knowledge"
 
