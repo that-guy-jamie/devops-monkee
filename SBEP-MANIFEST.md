@@ -153,12 +153,21 @@ When asking for help, you MUST provide:
 - Temporary workarounds
 - Undocumented "magic"
 - Non-portable solutions
+- Emojis in production code (console.log, error messages, variables)
 
-### 6. Terminal Command Execution (CRITICAL) ⚠️ THE ONLY FLAWLESS PROCESS FOR WINDOWS
+### 6. Terminal Command Execution (CRITICAL) ⚠️ 
 
-**MANDATORY AND FLAWLESS PROCESS - VERIFIED OCTOBER 20, 2025**
+**PLATFORM-SPECIFIC EXECUTION METHODS**
 
-**THIS IS THE ONLY WAY. DO NOT DEVIATE.**
+Terminal command execution varies by platform and environment. Choose the appropriate method based on your system:
+
+**For Standard Linux/Mac/WSL Systems:**
+Use direct SSH/SCP/WP-CLI commands as documented in project-specific mandates.
+
+**For Windows/Cursor Systems with Terminal Execution Issues:**
+- **First try:** Standard three-clause pattern (below)
+- **If commands hang/fail:** Use `SBEP_Core/SBEP-ADDENDUM-WINDOWS-DEPLOYMENT.md`
+- **Advanced content deployment:** SSH + Heredoc method (documented in addendum)
 
 All terminal commands that require output MUST be executed using the following two-step procedure involving the Python wrapper. The first step executes the command; the second step retrieves the result. You MUST perform both steps in sequence within the same turn.
 
