@@ -38,6 +38,8 @@ DevOps Monkee is the governance layer for the **SBEP Protocol** - a comprehensiv
 
 ## 📦 Installation
 
+DevOps Monkee is now live and available on npm!
+
 ```bash
 # Install globally for CLI usage
 npm install -g devops-monkee
@@ -45,6 +47,13 @@ npm install -g devops-monkee
 # Or install locally in your project
 npm install --save-dev devops-monkee
 ```
+
+**Package Details:**
+- **Version**: 1.0.0
+- **License**: MIT
+- **npm**: https://www.npmjs.com/package/devops-monkee
+- **GitHub**: https://github.com/that-guy-jamie/devops-monkee
+- **GitLab**: https://gitlab.com/deancaciopp0-group/sbep-protocol
 
 ### Requirements
 - **Node.js**: >= 18.0.0

@@ -1,6 +1,6 @@
 # The Source Protocol: Revolutionizing AI Development Governance
 
-**Posted by James McRaney | October 30, 2025**
+**Posted by James McRaney | October 31, 2025**
 
 In the rapidly evolving world of AI development, we're seeing incredible breakthroughs in capabilities. But with great power comes great responsibility—and often, great complexity. At OneClickSEO, we've been wrestling with this firsthand as we build AI-powered marketing solutions.
 
@@ -101,12 +101,16 @@ The Source Protocol represents a fundamental shift in how we approach AI develop
 Ready to bring governance to your AI development?
 
 ```bash
-npm install -g devops-monkee
+npm install devops-monkee
 devops-monkee init .
 devops-monkee validate .
 ```
 
-Visit our [GitHub repository](https://github.com/james-mcraney/devops-monkee) to get started, or check out the [documentation](https://docs.devops-monkee.dev) for detailed guides.
+DevOps Monkee is now live and available! Check it out:
+
+- **npm Package**: https://www.npmjs.com/package/devops-monkee
+- **GitHub Repository**: https://github.com/that-guy-jamie/devops-monkee
+- **GitLab Repository**: https://gitlab.com/deancaciopp0-group/sbep-protocol
 
 ## Join the Movement
 

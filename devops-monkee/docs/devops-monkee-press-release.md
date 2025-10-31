@@ -2,7 +2,7 @@
 
 **FOR IMMEDIATE RELEASE**
 
-**October 30, 2025** - OneClickSEO announces the public release of **DevOps Monkee**, an open-source governance framework that implements the revolutionary **Source Protocol** (SBEP) for AI agent development.
+**October 31, 2025** - OneClickSEO announces the successful launch of **DevOps Monkee**, an open-source governance framework that implements the revolutionary **Source Protocol** (SBEP) for AI agent development. The framework is now live and available for immediate download.
 
 ## Groundbreaking Solution Addresses Critical AI Development Challenges
 
@@ -67,11 +67,12 @@ DevOps Monkee is positioned to become the industry standard for AI governance, m
 
 ## Availability and Support
 
-DevOps Monkee is immediately available for download:
+DevOps Monkee is now live and immediately available:
 
-- **GitHub Repository**: https://github.com/james-mcraney/devops-monkee
-- **Documentation**: https://docs.devops-monkee.dev
-- **Installation**: `npm install -g devops-monkee`
+- **npm Package**: https://www.npmjs.com/package/devops-monkee
+- **GitHub Repository**: https://github.com/that-guy-jamie/devops-monkee
+- **GitLab Repository**: https://gitlab.com/deancaciopp0-group/sbep-protocol
+- **Installation**: `npm install devops-monkee`
 
 Professional services and enterprise support are available through OneClickSEO.
 
