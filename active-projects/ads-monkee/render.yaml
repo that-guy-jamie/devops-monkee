@@ -1,0 +1,85 @@
+# Ads Monkee - Render Infrastructure Blueprint
+# Auto-provisioned via Render MCP
+
+databases:
+  - name: ads-monkee-db
+    plan: pro_4gb
+    databaseName: ads_monkee_db
+    user: ads_monkee_db_user
+    region: oregon
+    ipAllowList: []
+    postgresMajorVersion: "16"
+
+services:
+  # FastAPI Backend
+  - type: web
+    name: ads-monkee-api
+    env: python
+    region: oregon
+    plan: starter
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn backend.main:app --host 0.0.0.0 --port ${PORT}
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: ads-monkee-db
+          property: connectionStringInternal
+      - key: JWT_SECRET
+        generateValue: true
+      - key: ENVIRONMENT
+        value: production
+      - key: LOG_LEVEL
+        value: INFO
+      - key: REDIS_URL
+        fromService:
+          type: redis
+          name: ads-monkee-redis
+          property: connectionString
+      - key: GOOGLE_ADS_DEVELOPER_TOKEN
+        sync: false
+      - key: GOOGLE_ADS_CLIENT_ID
+        sync: false
+      - key: GOOGLE_ADS_CLIENT_SECRET
+        sync: false
+      - key: GOOGLE_ADS_REFRESH_TOKEN
+        sync: false
+      - key: GOOGLE_ADS_LOGIN_CUSTOMER_ID
+        sync: false
+      - key: ANTHROPIC_API_KEY
+        sync: false
+    healthCheckPath: /health
+    
+  # Celery Worker (Background Tasks)
+  - type: worker
+    name: ads-monkee-worker
+    env: python
+    region: oregon
+    plan: starter
+    buildCommand: pip install -r requirements.txt
+    startCommand: celery -A backend.workers.celery_app worker --pool=solo --loglevel=info
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: ads-monkee-db
+          property: connectionStringInternal
+      - key: REDIS_URL
+        fromService:
+          type: redis
+          name: ads-monkee-redis
+          property: connectionString
+      - key: GOOGLE_ADS_DEVELOPER_TOKEN
+        sync: false
+      - key: GOOGLE_ADS_CLIENT_ID
+        sync: false
+      - key: GOOGLE_ADS_CLIENT_SECRET
+        sync: false
+      - key: GOOGLE_ADS_REFRESH_TOKEN
+        sync: false
+      - key: GOOGLE_ADS_LOGIN_CUSTOMER_ID
+        sync: false
+      - key: ANTHROPIC_API_KEY
+        sync: false
+
+# Redis (Key-Value Store)
+# Note: Already provisioned via MCP as 'ads-monkee-redis'
+

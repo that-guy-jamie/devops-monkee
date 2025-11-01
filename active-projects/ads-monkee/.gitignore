@@ -1,0 +1,242 @@
+# Ads Monkee - Git Ignore
+
+# ============================================================================
+# SECRETS & ENVIRONMENT
+# ============================================================================
+.env
+.env.local
+.env.*.local
+*.env
+!env.example
+google-ads.yaml
+secrets/
+credentials/
+
+# ============================================================================
+# PYTHON
+# ============================================================================
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# Virtual environments
+venv/
+ENV/
+env/
+.venv
+
+# Poetry
+poetry.lock
+.poetry/
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+
+# ============================================================================
+# NODE / FRONTEND
+# ============================================================================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+package-lock.json
+yarn.lock
+
+# Build outputs
+frontend/dist/
+frontend/build/
+.next/
+out/
+
+# ============================================================================
+# DATABASE
+# ============================================================================
+*.db
+*.sqlite
+*.sqlite3
+*.db-journal
+*.db-wal
+*.db-shm
+
+# Alembic
+alembic.ini.local
+
+# ============================================================================
+# IDEs & EDITORS
+# ============================================================================
+# VSCode
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# Cursor
+.cursor/
+
+# PyCharm
+.idea/
+*.iml
+*.iws
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+*.swp
+*.swo
+*~
+
+# Emacs
+*~
+\#*\#
+.\#*
+
+# ============================================================================
+# OS
+# ============================================================================
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+.directory
+.Trash-*
+
+# ============================================================================
+# PROJECT-SPECIFIC
+# ============================================================================
+# Data files (use database instead)
+*.csv
+*.xlsx
+*.json
+!package.json
+!tsconfig.json
+!**/fixtures/*.json
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+*.log.*
+
+# Reports
+reports/
+*.pdf
+*.html
+!docs/**/*.html
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+.tmp/
+
+# Backups
+*.bak
+*.backup
+backup/
+
+# Archives
+*.zip
+*.tar
+*.gz
+*.rar
+
+# ============================================================================
+# CELERY
+# ============================================================================
+celerybeat-schedule
+celerybeat.pid
+
+# ============================================================================
+# DOCUMENTATION BUILDS
+# ============================================================================
+docs/_build/
+docs/.doctrees/
+site/
+
+# ============================================================================
+# MONITORING & PROFILING
+# ============================================================================
+.profiling/
+*.prof
+*.lprof
+
+# ============================================================================
+# RENDER / DEPLOYMENT
+# ============================================================================
+.render/
+
+# ============================================================================
+# EXCEPTIONS (Files to INCLUDE)
+# ============================================================================
+# Keep example files
+!env.example
+!.env.example
+
+# Keep documentation
+!docs/**
+!README.md
+!CHANGELOG.md
+
+# Keep configuration templates
+!alembic.ini
+!render.yaml
+

@@ -1,0 +1,14 @@
+client_id: 576-352-2721
+client_name: 1 Percent Lists Tacoma ( LSA Related)
+time_zone: America/Los_Angeles
+currency_code: USD
+data_sources:
+  google_ads:
+    enabled: true
+    mcc_id: null
+  google_lsa:
+    enabled: false
+    import_method: csv
+reporting:
+  default_template: campaign_report.md.j2
+  default_scope: LAST-30-DAYS
