@@ -1,12 +1,9 @@
 # These are supported funding model platforms
 
-github: # Replace with your GitHub username
-patreon: # Replace with your Patreon username
-open_collective: # Replace with your Open Collective username
-ko_fi: # Replace with your Ko-fi username
-tidelift: # Replace with your Tidelift platform/project
-community_bridge: # Replace with your Community Bridge project
-liberapay: # Replace with your Liberapay username
-issuehunt: # Replace with your IssueHunt username
-otechie: # Replace with your Otechie username
-custom: # Replace with a single custom sponsorship URL
+# Option 1: Link to OneClickSEO website (recommended for company projects)
+custom: ['https://oneclickseo.com']
+
+# Option 2: GitHub Sponsors (if you want to accept individual sponsorships)
+# github: that-guy-jamie  # Uncomment if you enable GitHub Sponsors
+
+# Option 3: Remove this file entirely if you don't want a funding button
