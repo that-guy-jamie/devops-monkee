@@ -1,0 +1,239 @@
+{
+  "schema": {
+    "name": "SBEP Validation Schema",
+    "version": "1.0.0",
+    "description": "Comprehensive validation rules for SBEP protocol compliance",
+    "governance_version": "1.0.0"
+  },
+  "validation_rules": {
+    "document_structure": {
+      "required_files": [
+        {
+          "path": "SBEP-MANIFEST.md",
+          "description": "Global operating mandate",
+          "required_sections": ["Purpose", "Agent Operating Protocol", "Project Structure Standards"]
+        },
+        {
+          "path": "sds/SBEP-MANDATE.md",
+          "description": "Project-specific instructions",
+          "required_sections": ["Project Context", "Quick Start for Agents", "Project-Specific Rules"]
+        },
+        {
+          "path": "sds/SBEP-INDEX.yaml",
+          "description": "Documentation inventory",
+          "required_fields": ["title", "description", "sections"]
+        },
+        {
+          "path": "README.md",
+          "description": "Project overview",
+          "minimum_length": 200
+        },
+        {
+          "path": "CHANGELOG.md",
+          "description": "Change history",
+          "required_format": "semantic versioning"
+        }
+      ],
+      "optional_files": [
+        "ops/README.md",
+        "docs/architecture/",
+        "workorders/",
+        ".tmp/",
+        "archive/"
+      ]
+    },
+    "version_consistency": {
+      "rules": [
+        {
+          "name": "single_source_of_truth",
+          "description": "All version references must match VERSION-MANIFEST.json",
+          "check_type": "cross_reference",
+          "severity": "critical"
+        },
+        {
+          "name": "semantic_versioning",
+          "description": "Versions must follow MAJOR.MINOR.PATCH format",
+          "pattern": "^\\d+\\.\\d+\\.\\d+$",
+          "severity": "high"
+        },
+        {
+          "name": "version_drift_detection",
+          "description": "No component version may be more than 1 minor version behind protocol",
+          "max_drift": "1.0.0",
+          "severity": "medium"
+        }
+      ]
+    },
+    "quality_metrics": {
+      "documentation_completeness": {
+        "required_sections": 12,
+        "minimum_word_count": 500,
+        "cross_references_required": 8,
+        "code_examples_required": 3
+      },
+      "consistency_checks": {
+        "terminology_standardization": [
+          "SBEP",
+          "AI agent",
+          "documentation-first",
+          "governance layer"
+        ],
+        "formatting_standards": {
+          "headers": "ATX style (# ## ###)",
+          "code_blocks": "fenced with language tags",
+          "links": "reference style when possible"
+        }
+      },
+      "technical_accuracy": {
+        "version_references_current": true,
+        "file_paths_exist": true,
+        "commands_executable": true,
+        "api_endpoints_accessible": true
+      }
+    },
+    "safety_compliance": {
+      "rollback_requirements": {
+        "destructive_operations": "rollback_plan_required",
+        "data_modifications": "backup_required",
+        "configuration_changes": "validation_required"
+      },
+      "deprecation_workflow": {
+        "file_deletion": "workflow_required",
+        "feature_removal": "migration_guide_required",
+        "api_changes": "compatibility_matrix_required"
+      }
+    },
+    "exception_policy_compliance": {
+      "required_policies": [
+        "EP-DEP-001",
+        "EP-TOOL-001",
+        "EP-VAL-001",
+        "EP-SYNC-001"
+      ],
+      "policy_structure": {
+        "purpose": "required",
+        "when_applies": "required",
+        "required_steps": "required",
+        "prohibited_actions": "required"
+      }
+    }
+  },
+  "scoring_system": {
+    "categories": {
+      "document_structure": {
+        "weight": 25,
+        "criteria": [
+          "required_files_present",
+          "sections_complete",
+          "formatting_correct"
+        ]
+      },
+      "version_consistency": {
+        "weight": 20,
+        "criteria": [
+          "versions_synchronized",
+          "semantic_versioning",
+          "drift_within_limits"
+        ]
+      },
+      "quality_metrics": {
+        "weight": 25,
+        "criteria": [
+          "completeness_score",
+          "consistency_score",
+          "technical_accuracy"
+        ]
+      },
+      "safety_compliance": {
+        "weight": 15,
+        "criteria": [
+          "rollback_plans",
+          "deprecation_workflow",
+          "backup_procedures"
+        ]
+      },
+      "exception_policies": {
+        "weight": 15,
+        "criteria": [
+          "policies_present",
+          "structure_correct",
+          "procedures_defined"
+        ]
+      }
+    },
+    "grade_thresholds": {
+      "A": { "min": 90, "description": "Excellent - Fully compliant with advanced features" },
+      "B": { "min": 80, "description": "Good - Compliant with minor improvements needed" },
+      "C": { "min": 70, "description": "Fair - Basic compliance with significant gaps" },
+      "D": { "min": 60, "description": "Poor - Major compliance issues requiring attention" },
+      "F": { "min": 0, "description": "Fail - Critical compliance violations" }
+    }
+  },
+  "automated_checks": {
+    "pre_commit_hooks": [
+      "version-consistency-check",
+      "document-structure-validation",
+      "cross-reference-verification"
+    ],
+    "ci_cd_gates": [
+      "full-validation-suite",
+      "quality-metrics-assessment",
+      "safety-compliance-check",
+      "exception-policy-validation"
+    ],
+    "scheduled_audits": {
+      "frequency": "weekly",
+      "scope": "all_projects",
+      "reporting": "governance_dashboard"
+    }
+  },
+  "remediation_actions": {
+    "version_drift": {
+      "action": "auto_sync_versions",
+      "requires_approval": false,
+      "notification": "team_lead"
+    },
+    "missing_sections": {
+      "action": "generate_template_sections",
+      "requires_approval": true,
+      "notification": "content_owner"
+    },
+    "broken_references": {
+      "action": "auto_fix_links",
+      "requires_approval": false,
+      "notification": "commit_author"
+    },
+    "quality_violations": {
+      "action": "flag_for_review",
+      "requires_approval": true,
+      "notification": "governance_committee"
+    }
+  },
+  "exception_conditions": {
+    "emergency_bypass": {
+      "conditions": [
+        "critical_system_failure",
+        "security_incident",
+        "data_loss_prevention"
+      ],
+      "approval_required": "security_team",
+      "audit_required": true,
+      "review_required": "post_incident"
+    },
+    "legacy_systems": {
+      "conditions": [
+        "unsupported_technology",
+        "third_party_constraints",
+        "migration_in_progress"
+      ],
+      "temporary_exemption": "6_months",
+      "remediation_plan_required": true
+    }
+  },
+  "metadata": {
+    "created": "2025-10-30",
+    "last_updated": "2025-10-30",
+    "governance_version": "1.0.0",
+    "validation_engine_version": "1.0.0"
+  }
+}

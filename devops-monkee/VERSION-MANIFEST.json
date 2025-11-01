@@ -1,0 +1,115 @@
+{
+  "manifest": {
+    "name": "SBEP Version Manifest",
+    "description": "Single source of truth for all SBEP version information",
+    "created": "2025-10-30",
+    "governance": "1.0.0"
+  },
+  "versions": {
+    "protocol": {
+      "current": "2.2.0",
+      "previous": "2.1.0",
+      "released": "2025-10-23",
+      "status": "stable"
+    },
+    "governance": {
+      "current": "1.0.0",
+      "previous": null,
+      "released": "2025-10-30",
+      "status": "stable"
+    },
+    "components": {
+      "manifest": {
+        "current": "2.2.0",
+        "file": "SBEP-MANIFEST.md",
+        "last_sync": "2025-10-23T10:00:00Z"
+      },
+      "core": {
+        "current": "1.0.0",
+        "file": "SBEP_Core/",
+        "last_sync": "2025-10-18T14:30:00Z"
+      },
+      "governance": {
+        "current": "1.0.0",
+        "file": "GOVERNANCE-LAYER.md",
+        "last_sync": "2025-10-30T12:00:00Z"
+      },
+      "constitution": {
+        "current": "1.0.0",
+        "file": "CONSTITUTION.md",
+        "last_sync": "2025-10-30T12:00:00Z"
+      },
+      "validation_schema": {
+        "current": "1.0.0",
+        "file": "VALIDATION-SCHEMA.json",
+        "last_sync": "2025-10-30T12:00:00Z"
+      },
+      "templates": {
+        "current": "1.0.0",
+        "file": "templates/",
+        "last_sync": "2025-10-30T12:00:00Z"
+      }
+    }
+  },
+  "compatibility": {
+    "minimum_agent_version": "1.0.0",
+    "supported_node_versions": ["18.0.0", "20.0.0"],
+    "breaking_changes": [
+      {
+        "version": "2.0.0",
+        "description": "Terminal execution method changes - Python wrapper now mandatory",
+        "migration_guide": "MIGRATION-GUIDE.md#terminal-execution",
+        "deprecated_date": "2025-10-15"
+      },
+      {
+        "version": "2.1.0",
+        "description": "Housekeeping policy replaced absolute deletions with deprecation workflow",
+        "migration_guide": "MIGRATION-GUIDE.md#housekeeping-policy",
+        "deprecated_date": "2025-10-20"
+      }
+    ],
+    "deprecated_features": [
+      {
+        "feature": "Direct terminal command execution",
+        "replaced_by": "Python wrapper method",
+        "removal_version": "3.0.0",
+        "removal_date": "2026-04-15"
+      }
+    ]
+  },
+  "quality_metrics": {
+    "documentation_completeness": {
+      "required_sections": 12,
+      "cross_references": 8,
+      "validation_rules": 15
+    },
+    "code_quality": {
+      "test_coverage": 85,
+      "linting_rules": 25,
+      "type_safety": "strict"
+    }
+  },
+  "distribution": {
+    "npm_package": "devops-monkee",
+    "github_repository": "https://github.com/devops-monkee/devops-monkee",
+    "documentation_site": "https://docs.devops-monkee.dev",
+    "changelog": "CHANGELOG.md"
+  },
+  "governance": {
+    "last_audit": "2025-10-30T12:00:00Z",
+    "next_review": "2025-11-30T12:00:00Z",
+    "responsible_party": "Governance Committee",
+    "contact": "governance@devops-monkee.dev"
+  },
+  "validation": {
+    "last_validation": "2025-10-30T12:00:00Z",
+    "validation_status": "passed",
+    "issues_found": 0,
+    "warnings": 0
+  },
+  "checksums": {
+    "constitution": "sha256:a1b2c3d4e5f6...",
+    "validation_schema": "sha256:b2c3d4e5f6g7...",
+    "governance_layer": "sha256:c3d4e5f6g7h8..."
+  }
+}
