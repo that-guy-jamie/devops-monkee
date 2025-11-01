@@ -79,18 +79,23 @@ def check_priority_campaigns(customer_id: str):
         return []
 
 def main():
-    customer_id = "9390713365"
-    expected_campaign = "customers/9390713365/campaigns/23164101092"
+    customer_id = "4139022884"  # Correct Priority Roofing customer ID
 
     print("=" * 60)
     print("CAMPAIGN CREATION VERIFICATION")
     print("=" * 60)
 
-    # Check if our created campaign exists
-    campaign_exists = verify_campaign_exists(customer_id, expected_campaign)
-
-    # List all Roofing campaigns
+    # List all Roofing campaigns to find what exists
     all_campaigns = check_priority_campaigns(customer_id)
+    
+    # Check if the parallel campaign exists
+    campaign_exists = False
+    if all_campaigns:
+        for campaign in all_campaigns:
+            if "Parallel" in campaign['name']:
+                expected_campaign = f"customers/{customer_id}/campaigns/{campaign['id']}"
+                campaign_exists = verify_campaign_exists(customer_id, expected_campaign)
+                break
 
     print("=" * 60)
     if campaign_exists:

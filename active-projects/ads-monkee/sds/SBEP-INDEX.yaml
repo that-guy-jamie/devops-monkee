@@ -22,12 +22,14 @@ core_docs:
   readme:
     path: README.md
     purpose: Project overview and quick start guide
-    status: pending
+    status: active
+    last_updated: "2025-10-17"
   
   changelog:
     path: CHANGELOG.md
     purpose: All changes documented per SBEP protocol
-    status: pending
+    status: active
+    last_updated: "2025-11-01"
 
 architecture:
   overview:
@@ -160,17 +162,49 @@ testing:
   unit_tests:
     path: tests/unit/
     purpose: Service class and utility function tests
-    status: pending
+    status: active
+    last_updated: "2025-11-01"
+    coverage:
+      - test_services/test_google_ads_queries.py - Query generation and field mapping
+      - test_services/test_llm_client.py - LLM client abstraction and factory
+      - test_services/test_ghl_file_upload.py - GHL file upload service
+      - test_services/test_report_generator.py - PDF report generation
+      - test_integrations/test_google_ads_client.py - Google Ads API wrapper
+      - test_integrations/test_ghl_client.py - GHL API client
   
   integration_tests:
     path: tests/integration/
     purpose: API endpoint and Celery task tests
-    status: pending
+    status: active
+    last_updated: "2025-11-01"
+    coverage:
+      - test_api/test_health.py - Health check endpoint
+      - test_api/test_clients.py - Client management endpoints
+      - test_api/test_reports.py - Report generation endpoints
+      - test_tasks/test_analysis_tasks.py - Celery analysis tasks
+      - test_database/test_models.py - Database model operations
   
   e2e_tests:
     path: tests/e2e/
     purpose: Full workflow end-to-end tests
-    status: pending
+    status: active
+    last_updated: "2025-11-01"
+    coverage:
+      - test_workflows/test_analysis_workflow.py - Complete analysis workflow
+      - test_workflows/test_approval_workflow.py - Approval and execution workflow
+      - test_workflows/test_client_dashboard.py - Client dashboard functionality
+  
+  test_infrastructure:
+    path: tests/conftest.py
+    purpose: Shared pytest fixtures and test configuration
+    status: active
+    last_updated: "2025-11-01"
+    features:
+      - Mock fixtures for external APIs (Google Ads, GHL, LLM)
+      - HTTP request mocking (requests.post, get, put)
+      - FastAPI test client fixture
+      - Test database session fixtures
+      - Sample data fixtures
 
 dependencies:
   python:

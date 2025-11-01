@@ -65,13 +65,54 @@ scratch-*.txt
 # Workorder archives (completed workorders are archived, not versioned)
 Workorders/Completed*/
 **/workorders/Completed*/
+
 # Environment variables - catch all variants
 .env*
 !.env.example
 *.env
 !.env.example
 
-# Independent published projects (have their own repos)
-active-projects/devops-monkee/
-devops-monkee/
+# Exclude all orphan/personal data from parent directory
+# These should not be in the public devops-monkee repo
 
+# Parent-level directories that shouldn't be tracked
+Tools/
+Workorders/
+active-projects/
+SBEP_Core/
+ads-monkey-migration/
+astro/
+ci/
+client-work/
+cross-project-docs/
+ops/
+plugin/
+scripts/
+src/
+
+# Parent-level files that shouldn't be tracked
+.env.example
+.gitlab-ci.yml
+.gitlab/
+.pre-commit-config.yaml
+.sbep-link-ignore
+.tmp.driveupload/
+CHANGELOG.md
+DOCUMENTATION-INDEX.md
+LSA-*.md
+MANUAL-WORKFLOW-SETUP.md
+NEW-AGENT-PICKUP-PROMPT.md
+SBEP-NO-EMOJIS-RULE.md
+package.json
+package-lock.json
+render.yaml
+housekeeping.config.json
+google-service-account.json
+
+# Cursor IDE files (parent level)
+.cursor/
+.cursorrules
+.githooks/
+
+# Note: devops-monkee/ subdirectory IS tracked (that's the repo we're making public)
+# All other top-level files/dirs are excluded above

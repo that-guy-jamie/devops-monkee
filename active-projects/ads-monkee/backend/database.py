@@ -9,7 +9,7 @@ from typing import AsyncGenerator
 
 from sqlalchemy import create_engine
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
-from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import declarative_base
 from sqlalchemy.orm import Session, sessionmaker
 
 from backend.config import settings
@@ -24,17 +24,28 @@ Base = declarative_base()
 # Sync Engine (for Alembic migrations)
 # ============================================================================
 
-sync_engine = create_engine(
-    settings.DATABASE_URL,
-    echo=settings.is_development,
-    pool_size=10,
-    max_overflow=20,
-    pool_pre_ping=True,  # Verify connections before using
-    connect_args={
-        "sslmode": "require",
-        "connect_timeout": 10,
-    },
-)
+# Determine if using SQLite (for tests) or PostgreSQL
+is_sqlite = settings.DATABASE_URL.startswith("sqlite")
+
+# Base engine config
+engine_config = {
+    "url": settings.DATABASE_URL,
+    "echo": settings.is_development,
+    "pool_pre_ping": True,  # Verify connections before using
+}
+
+# SQLite doesn't support pool_size, max_overflow, or SSL
+if not is_sqlite:
+    engine_config.update({
+        "pool_size": 10,
+        "max_overflow": 20,
+        "connect_args": {
+            "sslmode": "require",
+            "connect_timeout": 10,
+        },
+    })
+
+sync_engine = create_engine(**engine_config)
 
 SyncSessionLocal = sessionmaker(
     autocommit=False,
@@ -46,32 +57,60 @@ SyncSessionLocal = sessionmaker(
 # Async Engine (for FastAPI)
 # ============================================================================
 
-# Convert psycopg2 URL to asyncpg URL
-async_database_url = settings.DATABASE_URL.replace(
-    "postgresql://", "postgresql+asyncpg://"
-).replace(
-    "psycopg2://", "postgresql+asyncpg://"
-)
+# Convert to async URL
+if is_sqlite:
+    # SQLite async requires aiosqlite
+    async_database_url = settings.DATABASE_URL.replace(
+        "sqlite://", "sqlite+aiosqlite://"
+    )
+else:
+    # PostgreSQL async uses asyncpg
+    async_database_url = settings.DATABASE_URL.replace(
+        "postgresql://", "postgresql+asyncpg://"
+    ).replace(
+        "psycopg2://", "postgresql+asyncpg://"
+    )
 
-async_engine = create_async_engine(
-    async_database_url,
-    echo=settings.is_development,
-    pool_size=10,
-    max_overflow=20,
-    pool_pre_ping=True,
-    connect_args={
-        "ssl": "require",
-        "timeout": 10,
-    },
-)
+# Create async engine only if not SQLite (SQLite async requires aiosqlite which isn't always needed)
+# For tests using SQLite, we'll create it lazily if needed
+async_engine = None
+if not is_sqlite:
+    async_engine_config = {
+        "url": async_database_url,
+        "echo": settings.is_development,
+        "pool_pre_ping": True,
+        "pool_size": 10,
+        "max_overflow": 20,
+        "connect_args": {
+            "ssl": "require",
+            "timeout": 10,
+        },
+    }
+    async_engine = create_async_engine(**async_engine_config)
+elif is_sqlite and ":memory:" not in async_database_url:
+    # Only create async SQLite engine if aiosqlite is available and not in-memory
+    try:
+        import aiosqlite
+        async_engine_config = {
+            "url": async_database_url,
+            "echo": settings.is_development,
+            "pool_pre_ping": True,
+        }
+        async_engine = create_async_engine(**async_engine_config)
+    except ImportError:
+        # aiosqlite not installed - async engine will be None (for test environments)
+        async_engine = None
 
-AsyncSessionLocal = async_sessionmaker(
-    async_engine,
-    class_=AsyncSession,
-    expire_on_commit=False,
-    autocommit=False,
-    autoflush=False,
-)
+# Only create AsyncSessionLocal if async_engine exists
+AsyncSessionLocal = None
+if async_engine is not None:
+    AsyncSessionLocal = async_sessionmaker(
+        async_engine,
+        class_=AsyncSession,
+        expire_on_commit=False,
+        autocommit=False,
+        autoflush=False,
+    )
 
 # ============================================================================
 # Database Session Dependency (FastAPI)
