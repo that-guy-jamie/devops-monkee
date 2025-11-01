@@ -3,8 +3,9 @@ import * as path from 'path';
 import { VALIDATION_SCHEMA } from '../utils/validation-schema';
 import { logger } from '../utils/logger';
 import { AuditResult, AuditCategory } from '../index';
+import { IAuditor } from '../interfaces/tool-interfaces';
 
-export class Auditor {
+export class Auditor implements IAuditor {
   async audit(projectPath: string, type: string = 'quality'): Promise<AuditResult> {
     const startTime = Date.now();
 
@@ -470,5 +471,14 @@ export class Auditor {
 
     await fs.writeJson(outputPath, report, { spaces: 2 });
     logger.info(`Audit report saved to: ${outputPath}`);
+  }
+
+  // IAuditor interface implementation
+  getName(): string {
+    return 'default-auditor';
+  }
+
+  getVersion(): string {
+    return '1.0.0';
   }
 }

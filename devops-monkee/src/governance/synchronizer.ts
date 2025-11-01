@@ -4,8 +4,9 @@ import * as glob from 'glob';
 import { VERSION_MANIFEST } from '../utils/version-manifest';
 import { logger } from '../utils/logger';
 import { SyncResult, VersionConflict } from '../index';
+import { ISynchronizer } from '../interfaces/tool-interfaces';
 
-export class Synchronizer {
+export class Synchronizer implements ISynchronizer {
   async sync(projectPath: string, options: any = {}): Promise<SyncResult> {
     const progress = logger.startProgress('Version synchronization');
 
@@ -250,5 +251,18 @@ export class Synchronizer {
 
   async previewSync(projectPath: string): Promise<SyncResult> {
     return this.sync(projectPath, { dryRun: true });
+  }
+
+  // ISynchronizer interface implementation
+  preview(projectPath: string, options: any = {}): Promise<SyncResult> {
+    return this.previewSync(projectPath);
+  }
+
+  getName(): string {
+    return 'default-synchronizer';
+  }
+
+  getVersion(): string {
+    return '1.0.0';
   }
 }

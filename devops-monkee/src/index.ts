@@ -6,6 +6,17 @@ export { Synchronizer } from './governance/synchronizer';
 export { Auditor } from './governance/auditor';
 export { Governor } from './governance/governor';
 
+// Tool interfaces for plugin architecture
+export { 
+  IValidator, 
+  ISynchronizer, 
+  IAuditor, 
+  IGovernor 
+} from './interfaces/tool-interfaces';
+
+// Configuration system
+export { ConfigLoader, DevOpsMonkeeConfig } from './utils/config-loader';
+
 export { VERSION_MANIFEST } from './utils/version-manifest';
 export { VALIDATION_SCHEMA } from './utils/validation-schema';
 export { logger } from './utils/logger';
