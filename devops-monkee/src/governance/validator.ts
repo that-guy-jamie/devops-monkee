@@ -1,16 +1,39 @@
 import * as fs from 'fs-extra';
 import * as path from 'path';
 import * as glob from 'glob';
-import { VALIDATION_SCHEMA } from '../utils/validation-schema';
+import { VALIDATION_SCHEMA, ValidationSchema } from '../utils/validation-schema';
 import { VERSION_MANIFEST } from '../utils/version-manifest';
 import { logger } from '../utils/logger';
 import { ValidationResult, ValidationIssue } from '../index';
+import { ConfigLoader } from '../utils/config-loader';
 
 export class Validator {
-  private schema = VALIDATION_SCHEMA;
+  private schema: ValidationSchema = VALIDATION_SCHEMA;
+  
+  /**
+   * Load schema from project config or use default
+   */
+  private async loadSchema(projectPath: string): Promise<ValidationSchema> {
+    const customSchemaPath = await ConfigLoader.getCustomSchemaPath(projectPath);
+    
+    if (customSchemaPath) {
+      try {
+        const customSchema = await fs.readJson(customSchemaPath);
+        logger.info(`Using custom validation schema from: ${customSchemaPath}`);
+        return customSchema as ValidationSchema;
+      } catch (error) {
+        logger.warn(`Failed to load custom schema, using default:`, error);
+      }
+    }
+    
+    return VALIDATION_SCHEMA;
+  }
 
   async validate(projectPath: string, options: any = {}): Promise<ValidationResult> {
     logger.info('Starting SBEP compliance validation...');
+    
+    // Load custom schema if available
+    this.schema = await this.loadSchema(projectPath);
 
     const issues: ValidationIssue[] = [];
     let totalScore = 0;
