@@ -65,3 +65,9 @@ scratch-*.txt
 # Workorder archives (completed workorders are archived, not versioned)
 Workorders/Completed*/
 **/workorders/Completed*/
+# Environment variables - catch all variants
+.env*
+!.env.example
+*.env
+!.env.example
+
