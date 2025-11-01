@@ -2,7 +2,7 @@
 
 **FOR IMMEDIATE RELEASE**
 
-**October 30, 2025** - OneClickSEO announces the public release of **DevOps Monkee**, an open-source governance framework that implements the revolutionary **Source Protocol** (SBEP) for AI agent development.
+**November 2025** - OneClickSEO announces the public release of **DevOps Monkee**, an open-source governance framework that implements the revolutionary **Source Protocol** (SBEP) for AI agent development. Now available on npm and GitHub.
 
 ## Groundbreaking Solution Addresses Critical AI Development Challenges
 
@@ -55,9 +55,11 @@ DevOps Monkee provides comprehensive governance capabilities:
 DevOps Monkee is released under the MIT License, making enterprise-grade AI governance accessible to organizations of all sizes. The framework includes:
 
 - Complete governance layer with constitutional principles
-- CLI tools for seamless integration
+- CLI tools for seamless integration (available via npm)
 - Comprehensive documentation and community support
+- GitHub Discussions for community engagement
 - Extension points for custom governance rules
+- Full TypeScript source code publicly available
 
 ## Industry Recognition and Future Impact
 
@@ -67,11 +69,19 @@ DevOps Monkee is positioned to become the industry standard for AI governance, m
 
 ## Availability and Support
 
-DevOps Monkee is immediately available for download:
+DevOps Monkee is now publicly available and immediately accessible:
 
-- **GitHub Repository**: https://github.com/james-mcraney/devops-monkee
-- **Documentation**: https://docs.devops-monkee.dev
+- **npm Package**: https://www.npmjs.com/package/devops-monkee
+- **GitHub Repository**: https://github.com/that-guy-jamie/devops-monkee
 - **Installation**: `npm install -g devops-monkee`
+- **Quick Install**: `npx devops-monkee init .`
+
+### Community Features
+
+- **GitHub Discussions**: Community forum for questions, ideas, and collaboration
+- **GitHub Sponsors**: Support the project via [GitHub Sponsors](https://github.com/sponsors/that-guy-jamie)
+- **Open Source**: MIT License - free for all use cases
+- **Complete Documentation**: Comprehensive guides in the repository
 
 Professional services and enterprise support are available through OneClickSEO.
 
