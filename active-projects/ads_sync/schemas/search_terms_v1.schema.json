@@ -1,0 +1,78 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Search Terms Data Schema v1",
+  "description": "Schema for Google Ads search term report data (campaign-level)",
+  "type": "object",
+  "properties": {
+    "data_source": {
+      "type": "string",
+      "enum": ["google_ads_search_terms"],
+      "description": "Source of the data"
+    },
+    "pull_date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "UTC timestamp when data was pulled"
+    },
+    "date": {
+      "type": "string",
+      "format": "date",
+      "description": "Client local date (YYYY-MM-DD)"
+    },
+    "campaign_id": {
+      "type": "string",
+      "pattern": "^[0-9]+$",
+      "description": "Campaign ID"
+    },
+    "search_term": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The actual search term used"
+    },
+    "match_type": {
+      "type": "string",
+      "enum": ["BROAD", "PHRASE", "EXACT"],
+      "description": "Keyword match type that triggered the ad"
+    },
+    "impressions": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Number of impressions for this search term"
+    },
+    "clicks": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Number of clicks from this search term"
+    },
+    "cost": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Cost from this search term in USD"
+    },
+    "conversions": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Conversions from this search term"
+    },
+    "schema_version": {
+      "type": "integer",
+      "const": 1,
+      "description": "Schema version number"
+    }
+  },
+  "required": [
+    "data_source",
+    "pull_date",
+    "date",
+    "campaign_id",
+    "search_term",
+    "match_type",
+    "impressions",
+    "clicks",
+    "cost",
+    "conversions",
+    "schema_version"
+  ],
+  "additionalProperties": false
+}
+
