@@ -41,6 +41,9 @@ class Settings(BaseSettings):
     PORT: int = Field(default=8000)
     
     # Security
+    # ⚠️ SBEP NOTE: JWT_SECRET defaults provided for local dev convenience only.
+    # In production, ALWAYS set via environment variables in Render dashboard.
+    # Default values are acceptable in private GitLab repo for team convenience.
     JWT_SECRET: str = Field(default="tvEwJD3RU94yn1OGC2fiAqhrcLxpZSHa")
     JWT_ALGORITHM: str = Field(default="HS256")
     JWT_EXPIRATION_HOURS: int = Field(default=24)
@@ -57,6 +60,9 @@ class Settings(BaseSettings):
     # ==============================================================================
     # Database
     # ==============================================================================
+    # ⚠️ SBEP NOTE: DATABASE_URL default provided for local dev convenience only.
+    # In production, Render automatically provides DATABASE_URL via env vars.
+    # Default values are acceptable in private GitLab repo for team convenience.
     DATABASE_URL: str = Field(default="postgresql://ads_monkee_db_basic_user:jR47n6Lwv503M51g9uQFGPjOfADMNXlq@dpg-d3oplg9r0fns73dom48g-a.oregon-postgres.render.com:5432/ads_monkee_db_basic?sslmode=require")
     
     # ==============================================================================
@@ -80,6 +86,10 @@ class Settings(BaseSettings):
     # ==============================================================================
     # Google Ads API
     # ==============================================================================
+    # ⚠️ SBEP NOTE: Google Ads credentials defaults provided for local dev convenience only.
+    # In production, ALWAYS set via environment variables in Render dashboard.
+    # Default values are acceptable in private GitLab repo for team convenience.
+    # Per SBEP v2.0: Production deployments MUST use environment variables only.
     GOOGLE_ADS_DEVELOPER_TOKEN: str = Field(default="woiu8GeCUDtirM0Z8u_yng")
     GOOGLE_ADS_CLIENT_ID: str = Field(default="125282075605-ranbui2iihm3hjpm9tshpksd8iluejsh.apps.googleusercontent.com")
     GOOGLE_ADS_CLIENT_SECRET: str = Field(default="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")

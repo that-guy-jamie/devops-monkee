@@ -147,13 +147,43 @@ async def health_check():
     Health check endpoint for monitoring.
     
     Used by Render and load balancers to verify service is healthy.
+    Per SBEP v2.0: Should verify critical dependencies are accessible.
     """
-    # TODO: Add database connectivity check
-    # TODO: Add Redis connectivity check
-    return {
+    health_status = {
         "status": "healthy",
         "environment": settings.ENVIRONMENT,
+        "checks": {}
     }
+    
+    # Database connectivity check
+    try:
+        from sqlalchemy import text
+        from backend.database import AsyncSessionLocal
+        async with AsyncSessionLocal() as session:
+            await session.execute(text("SELECT 1"))
+            await session.commit()
+        health_status["checks"]["database"] = "healthy"
+    except Exception as e:
+        health_status["status"] = "degraded"
+        health_status["checks"]["database"] = f"unhealthy: {str(e)}"
+    
+    # Redis connectivity check (if Redis URL is configured)
+    try:
+        import redis
+        if settings.REDIS_URL and not settings.REDIS_URL.startswith("redis://localhost"):
+            redis_client = redis.from_url(settings.REDIS_URL)
+            redis_client.ping()
+            health_status["checks"]["redis"] = "healthy"
+        else:
+            health_status["checks"]["redis"] = "not_configured"
+    except Exception as e:
+        if settings.REDIS_URL and not settings.REDIS_URL.startswith("redis://localhost"):
+            health_status["status"] = "degraded"
+            health_status["checks"]["redis"] = f"unhealthy: {str(e)}"
+        else:
+            health_status["checks"]["redis"] = "not_configured"
+    
+    return health_status
 
 
 # ============================================================================
