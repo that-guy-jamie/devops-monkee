@@ -6,8 +6,9 @@ import { VERSION_MANIFEST } from '../utils/version-manifest';
 import { logger } from '../utils/logger';
 import { ValidationResult, ValidationIssue } from '../index';
 import { ConfigLoader } from '../utils/config-loader';
+import { IValidator } from '../interfaces/tool-interfaces';
 
-export class Validator {
+export class Validator implements IValidator {
   private schema: ValidationSchema = VALIDATION_SCHEMA;
   
   /**
@@ -474,5 +475,18 @@ export class Validator {
     };
 
     await fs.writeJson(outputPath, report, { spaces: 2 });
+  }
+
+  // IValidator interface implementation
+  getName(): string {
+    return 'default-validator';
+  }
+
+  getVersion(): string {
+    return '1.0.0';
+  }
+
+  supportsAutoFix(): boolean {
+    return true;
   }
 }
