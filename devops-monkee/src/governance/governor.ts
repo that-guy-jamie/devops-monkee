@@ -6,6 +6,7 @@ import { Auditor } from './auditor';
 import { VERSION_MANIFEST } from '../utils/version-manifest';
 import { logger } from '../utils/logger';
 import { GovernanceStatus } from '../index';
+import { IGovernor } from '../interfaces/tool-interfaces';
 
 export interface GovernanceViolation {
   severity: 'critical' | 'high' | 'medium' | 'low';
@@ -16,7 +17,7 @@ export interface GovernanceViolation {
   remediation?: string;
 }
 
-export class Governor {
+export class Governor implements IGovernor {
   private validator = new Validator();
   private synchronizer = new Synchronizer();
   private auditor = new Auditor();
@@ -547,5 +548,14 @@ maintenance:
       default:
         throw new Error(`No auto-fix available for violation: ${violation.message}`);
     }
+  }
+
+  // IGovernor interface implementation
+  getName(): string {
+    return 'default-governor';
+  }
+
+  getVersion(): string {
+    return '1.0.0';
   }
 }
