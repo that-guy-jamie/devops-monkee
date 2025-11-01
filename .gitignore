@@ -71,3 +71,6 @@ Workorders/Completed*/
 *.env
 !.env.example
 
+# Independent published projects (have their own repos)
+active-projects/devops-monkee/
+
