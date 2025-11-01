@@ -1,0 +1,14 @@
+client_id: 466-060-3658
+client_name: Grant - 1 Percent Lists
+time_zone: America/Chicago
+currency_code: USD
+data_sources:
+  google_ads:
+    enabled: true
+    mcc_id: null
+  google_lsa:
+    enabled: false
+    import_method: csv
+reporting:
+  default_template: campaign_report.md.j2
+  default_scope: LAST-30-DAYS

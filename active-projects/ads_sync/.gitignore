@@ -1,0 +1,59 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+
+# Virtual Environment
+.venv/
+venv/
+ENV/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+logs/
+*.log
+
+# Data files (exclude actual data, keep structure)
+data/*/*.csv
+!data/.gitkeep
+
+# State files (sensitive)
+state/*.json
+!state/.gitkeep
+
+# Error files
+errors/*/*.json
+!errors/.gitkeep
+
+# Lock files
+locks/*.lock
+!locks/.gitkeep
+
+# Output reports (optional: commit or exclude)
+output/*/*.md
+!output/.gitkeep
+
+# Secrets
+.env
+*.yaml.secret
+google-ads.yaml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Poetry
+poetry.lock
+

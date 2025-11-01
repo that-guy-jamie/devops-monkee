@@ -1,0 +1,120 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Campaign Data Schema v1",
+  "description": "Schema for Google Ads campaign-level performance data with enhanced conversion metrics",
+  "type": "object",
+  "properties": {
+    "data_source": {
+      "type": "string",
+      "enum": ["google_ads"],
+      "description": "Source of the data"
+    },
+    "pull_date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "UTC timestamp when data was pulled"
+    },
+    "date": {
+      "type": "string",
+      "format": "date",
+      "description": "Client local date (YYYY-MM-DD)"
+    },
+    "campaign_id": {
+      "type": ["string", "integer"],
+      "description": "Campaign ID (numeric, can be string or integer)"
+    },
+    "campaign_name": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Campaign name"
+    },
+    "campaign_status": {
+      "type": "string",
+      "enum": ["ENABLED", "PAUSED", "REMOVED"],
+      "description": "Campaign status"
+    },
+    "impressions": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Number of impressions"
+    },
+    "clicks": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Number of clicks"
+    },
+    "cost": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Cost in USD (converted from micros)"
+    },
+    "conversions": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Primary conversion count"
+    },
+    "conversions_value": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Total conversion value in USD"
+    },
+    "all_conversions": {
+      "type": "number",
+      "minimum": 0,
+      "description": "All conversions including view-through"
+    },
+    "view_through_conversions": {
+      "type": "number",
+      "minimum": 0,
+      "description": "View-through conversions only"
+    },
+    "ctr": {
+      "type": ["number", "null"],
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Click-through rate (clicks/impressions)"
+    },
+    "avg_cpc": {
+      "type": ["number", "null"],
+      "minimum": 0,
+      "description": "Average cost per click (cost/clicks)"
+    },
+    "cpa": {
+      "type": ["number", "null"],
+      "minimum": 0,
+      "description": "Cost per acquisition (cost/conversions)"
+    },
+    "conv_rate": {
+      "type": ["number", "null"],
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Conversion rate (conversions/clicks)"
+    },
+    "currency_code": {
+      "type": "string",
+      "pattern": "^[A-Z]{3}$",
+      "description": "ISO 4217 currency code (e.g., USD)"
+    },
+    "schema_version": {
+      "type": "integer",
+      "const": 1,
+      "description": "Schema version number"
+    }
+  },
+  "required": [
+    "data_source",
+    "pull_date",
+    "date",
+    "campaign_id",
+    "campaign_name",
+    "campaign_status",
+    "impressions",
+    "clicks",
+    "cost",
+    "conversions",
+    "currency_code",
+    "schema_version"
+  ],
+  "additionalProperties": false
+}
+

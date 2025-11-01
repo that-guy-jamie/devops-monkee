@@ -1,0 +1,212 @@
+# Ads Monkee Documentation Index (SBEP v2.0)
+# This file catalogs all project documentation for AI agent navigation
+
+project:
+  name: Ads Monkee
+  type: Unified Digital Advertising Platform
+  status: Active Development
+  sbep_version: "2.2"
+  created: "2025-10-16"
+
+core_docs:
+  mandate:
+    path: sds/SBEP-MANDATE.md
+    purpose: Project-specific operating instructions for AI agents
+    last_updated: "2025-10-16"
+  
+  index:
+    path: sds/SBEP-INDEX.yaml
+    purpose: This file - documentation inventory
+    last_updated: "2025-10-16"
+  
+  readme:
+    path: README.md
+    purpose: Project overview and quick start guide
+    status: pending
+  
+  changelog:
+    path: CHANGELOG.md
+    purpose: All changes documented per SBEP protocol
+    status: pending
+
+architecture:
+  overview:
+    path: docs/architecture.md
+    purpose: System design, database schema, service interactions
+    status: pending
+  
+  api_reference:
+    path: docs/api-reference.md
+    purpose: FastAPI endpoint documentation with examples
+    status: pending
+  
+  deployment:
+    path: docs/deployment-guide.md
+    purpose: Render setup, environment variables, migration procedures
+    status: pending
+
+user_guides:
+  staff_admin:
+    path: docs/user-guide-staff.md
+    purpose: Supervisor dashboard usage for staff users
+    status: pending
+  
+  client:
+    path: docs/user-guide-client.md
+    purpose: Simplified dashboard guide for clients
+    status: pending
+
+backend_services:
+  google_ads_sync:
+    path: backend/services/google_ads_sync.py
+    purpose: Data synchronization from Google Ads API to Postgres
+    status: pending
+    migrated_from: ads_sync/ads_sync_cli.py
+  
+  ppc_analyzer:
+    path: backend/services/ppc_analyzer.py
+    purpose: Campaign performance analysis (Python-based agent)
+    status: pending
+    migrated_from: ads_sync/scripts/analyze_comprehensive_data.py
+  
+  ai_consensus:
+    path: backend/services/ai_consensus.py
+    purpose: Multi-agent analysis orchestration with Claude API
+    status: pending
+  
+  strategist:
+    path: backend/services/strategist.py
+    purpose: Convert analysis recommendations to executable actions
+    status: pending
+  
+  campaign_executor:
+    path: backend/services/campaign_executor.py
+    purpose: Execute approved modifications via Google Ads API
+    status: pending
+  
+  lsa_monitor:
+    path: backend/services/lsa_monitor.py
+    purpose: LSA survey monitoring and data collection
+    status: pending
+  
+  call_tracking:
+    path: backend/services/call_tracking.py
+    purpose: Call tracking event ingestion and analytics
+    status: pending
+    migrated_from: jamie_lcs-system/server.js
+
+integrations:
+  google_ads:
+    path: backend/integrations/google_ads_client.py
+    purpose: Google Ads API v21 wrapper with error handling
+    status: pending
+    external_docs: /projects/API-docs/google-ads-python/
+  
+  ghl:
+    path: backend/integrations/ghl_client.py
+    purpose: GoHighLevel API v2 wrapper for OAuth, reports, metrics sync
+    status: pending
+    external_docs: /projects/API-docs/highlevel-api-docs-main/
+  
+  claude:
+    path: backend/integrations/claude_client.py
+    purpose: Anthropic Claude API wrapper for AI analysis
+    status: pending
+
+database:
+  schema:
+    path: database/schema.sql
+    purpose: Initial database schema for Postgres
+    status: pending
+  
+  migrations:
+    path: database/migrations/
+    purpose: Alembic migration files
+    status: pending
+
+scripts:
+  init_db:
+    path: scripts/init_db.py
+    purpose: Initialize database with schema and seed data
+    status: pending
+  
+  migrate_data:
+    path: scripts/migrate_ads_sync_data.py
+    purpose: Migrate existing ads_sync CSV data to Postgres
+    status: pending
+  
+  seed_clients:
+    path: scripts/seed_clients.py
+    purpose: Create initial client records from Google Ads API
+    status: pending
+
+operations:
+  deploy:
+    path: ops/deploy.sh
+    purpose: Deployment script for Render
+    status: pending
+  
+  backup:
+    path: ops/backup.sh
+    purpose: Database backup procedures
+    status: pending
+  
+  render_config:
+    path: ops/render.yaml
+    purpose: Render infrastructure configuration
+    status: pending
+
+testing:
+  unit_tests:
+    path: tests/unit/
+    purpose: Service class and utility function tests
+    status: pending
+  
+  integration_tests:
+    path: tests/integration/
+    purpose: API endpoint and Celery task tests
+    status: pending
+  
+  e2e_tests:
+    path: tests/e2e/
+    purpose: Full workflow end-to-end tests
+    status: pending
+
+dependencies:
+  python:
+    path: pyproject.toml
+    purpose: Poetry dependency management
+    status: pending
+  
+  node:
+    path: frontend/package.json
+    purpose: npm dependency management
+    status: pending
+
+external_references:
+  google_ads_api:
+    location: /projects/API-docs/google-ads-python/
+    purpose: Official Google Ads API Python client documentation
+  
+  ghl_api:
+    location: /projects/API-docs/highlevel-api-docs-main/
+    purpose: GoHighLevel API documentation
+  
+  sbep_global:
+    location: /projects/SBEP-MANIFEST.md
+    purpose: Global SBEP v2.0 operating mandate
+  
+  ads_sync_legacy:
+    location: /projects/ads_sync/
+    purpose: Original ads_sync implementation (migration source)
+  
+  lcg_legacy:
+    location: /projects/jamie_lcs-system/
+    purpose: Local Call Generator implementation (migration source)
+
+notes:
+  - All file statuses update from 'pending' to 'active' as implementation progresses
+  - This index is the authoritative source for documentation locations
+  - When adding new docs, update this file immediately
+  - Cross-reference external APIs in /projects/API-docs/
+

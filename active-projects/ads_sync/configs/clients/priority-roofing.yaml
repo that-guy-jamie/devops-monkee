@@ -1,0 +1,14 @@
+client_id: 413-902-2884
+client_name: Priority Roofing
+time_zone: America/Chicago
+currency_code: USD
+data_sources:
+  google_ads:
+    enabled: true
+    mcc_id: null
+  google_lsa:
+    enabled: false
+    import_method: csv
+reporting:
+  default_template: campaign_report.md.j2
+  default_scope: LAST-30-DAYS
