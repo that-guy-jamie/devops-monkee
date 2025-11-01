@@ -1,0 +1,14 @@
+client_id: 272-836-2513
+client_name: Mike Del Grande
+time_zone: America/New_York
+currency_code: USD
+data_sources:
+  google_ads:
+    enabled: true
+    mcc_id: null
+  google_lsa:
+    enabled: false
+    import_method: csv
+reporting:
+  default_template: campaign_report.md.j2
+  default_scope: LAST-30-DAYS

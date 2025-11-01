@@ -1,0 +1,44 @@
+
+[INIT] Initializing analyzer for priority-roofing...
+[OK] Loaded 156 rows of campaigns data
+[OK] Loaded 539 rows of ad_groups data
+[OK] Loaded 1060 rows of keywords data
+[OK] Loaded 10298 rows of search_terms data
+[WARNING] No ads data found
+[WARNING] No geographic data found
+[WARNING] No device data found
+[WARNING] No demographics data found
+
+[ANALYSIS] Generating comprehensive report...
+[ANALYSIS] Calculating executive summary...
+[ANALYSIS] Analyzing search terms...
+[ANALYSIS] Analyzing quality scores...
+[ANALYSIS] Analyzing budget allocation...
+[ANALYSIS] Analyzing device performance...
+[ANALYSIS] Analyzing geographic performance...
+[ANALYSIS] Consolidating recommendations...
+[ANALYSIS] Report generation complete!
+
+
+[OK] JSON report saved to: C:\Users\james\Desktop\Projects\ads_sync\output\priority-roofing\analysis-report-20251016_050205.json
+[OK] Markdown report saved to: C:\Users\james\Desktop\Projects\ads_sync\output\priority-roofing\analysis-report-20251016_050205.md
+
+================================================================================
+ANALYSIS SUMMARY
+================================================================================
+Client: priority-roofing
+Total Spend: $16,418.32
+Total Conversions: 257
+Overall ROAS: 2.15x
+Wasted Spend: $5,963.77
+Optimization Potential: 36.3%
+================================================================================
+
+Top 5 High Priority Recommendations:
+1. Add 'roofing companies near me' as negative keyword (wasted $120.19 on 4 clicks with 0 conversions)
+2. Add 'roof repair near me' as negative keyword (wasted $112.19 on 4 clicks with 0 conversions)
+3. Add 'mackie roofing' as negative keyword (wasted $97.52 on 3 clicks with 0 conversions)
+4. Add 'flat roof replacement near me' as negative keyword (wasted $94.73 on 2 clicks with 0 conversions)
+5. Add 'roofers in metairie' as negative keyword (wasted $94.58 on 2 clicks with 0 conversions)
+
+

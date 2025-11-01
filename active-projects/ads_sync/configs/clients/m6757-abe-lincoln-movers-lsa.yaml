@@ -1,0 +1,14 @@
+client_id: 822-259-4931
+client_name: M6757 - Abe Lincoln Movers - LSA
+time_zone: America/Denver
+currency_code: USD
+data_sources:
+  google_ads:
+    enabled: true
+    mcc_id: null
+  google_lsa:
+    enabled: false
+    import_method: csv
+reporting:
+  default_template: campaign_report.md.j2
+  default_scope: LAST-30-DAYS

@@ -1,0 +1,19 @@
+Traceback (most recent call last):
+  File "C:\Users\james\Desktop\Projects\ads_sync\scripts\investigate_nodata.py", line 4, in <module>
+    import pandas as pd
+  File "C:\Users\james\AppData\Local\pypoetry\Cache\virtualenvs\ads-sync-MfVST24--py3.12\Lib\site-packages\pandas\__init__.py", line 61, in <module>
+    from pandas.core.api import (
+  File "C:\Users\james\AppData\Local\pypoetry\Cache\virtualenvs\ads-sync-MfVST24--py3.12\Lib\site-packages\pandas\core\api.py", line 47, in <module>
+    from pandas.core.groupby import (
+  File "C:\Users\james\AppData\Local\pypoetry\Cache\virtualenvs\ads-sync-MfVST24--py3.12\Lib\site-packages\pandas\core\groupby\__init__.py", line 1, in <module>
+    from pandas.core.groupby.generic import (
+  File "C:\Users\james\AppData\Local\pypoetry\Cache\virtualenvs\ads-sync-MfVST24--py3.12\Lib\site-packages\pandas\core\groupby\generic.py", line 68, in <module>
+    from pandas.core.frame import DataFrame
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 1091, in get_code
+  File "<frozen importlib._bootstrap_external>", line 1190, in get_data
+KeyboardInterrupt
+^C

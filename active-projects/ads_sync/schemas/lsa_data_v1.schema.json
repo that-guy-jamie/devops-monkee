@@ -1,0 +1,75 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Local Services Ads (LSA) Data Schema v1",
+  "description": "Schema for Google Local Services Ads lead data",
+  "type": "object",
+  "properties": {
+    "data_source": {
+      "type": "string",
+      "enum": ["google_lsa"],
+      "description": "Source of the data"
+    },
+    "pull_date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "UTC timestamp when data was pulled"
+    },
+    "date": {
+      "type": "string",
+      "format": "date",
+      "description": "Client local date when lead was received (YYYY-MM-DD)"
+    },
+    "lead_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Unique lead identifier"
+    },
+    "lead_status": {
+      "type": "string",
+      "enum": ["BOOKED", "MISSED", "DISPUTED", "OTHER"],
+      "description": "Current status of the lead"
+    },
+    "cost": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Cost of the lead in USD"
+    },
+    "disputed": {
+      "type": "boolean",
+      "description": "Whether the lead is disputed"
+    },
+    "call_duration_seconds": {
+      "type": ["integer", "null"],
+      "minimum": 0,
+      "description": "Duration of call in seconds (if applicable)"
+    },
+    "needs_survey_response": {
+      "type": "boolean",
+      "description": "Flag indicating if survey response is needed"
+    },
+    "currency_code": {
+      "type": "string",
+      "pattern": "^[A-Z]{3}$",
+      "description": "ISO 4217 currency code (e.g., USD)"
+    },
+    "schema_version": {
+      "type": "integer",
+      "const": 1,
+      "description": "Schema version number"
+    }
+  },
+  "required": [
+    "data_source",
+    "pull_date",
+    "date",
+    "lead_id",
+    "lead_status",
+    "cost",
+    "disputed",
+    "needs_survey_response",
+    "currency_code",
+    "schema_version"
+  ],
+  "additionalProperties": false
+}
+
