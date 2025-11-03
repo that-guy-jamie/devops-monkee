@@ -1,0 +1,13 @@
+# Default owner for all files
+* @that-guy-jamie
+
+# Documentation
+*.md @that-guy-jamie
+docs/ @that-guy-jamie
+
+# Configuration files
+package.json @that-guy-jamie
+tsconfig.json @that-guy-jamie
+*.yml @that-guy-jamie
+*.yaml @that-guy-jamie
+

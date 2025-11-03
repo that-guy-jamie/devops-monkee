@@ -1,0 +1,89 @@
+{
+  "name": "devops-monkee",
+  "version": "1.1.1",
+  "description": "DevOps Monkee — SBEP governance layer CLI + API for AI agent projects.",
+  "type": "module",
+  "main": "dist/index.js",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "types": "dist/index.d.ts",
+  "bin": {
+    "devops-monkee": "dist/cli.js",
+    "sbep": "dist/cli.js",
+    "dopm": "dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "clean": "rimraf dist .turbo .tsbuildinfo || true",
+    "test": "jest",
+    "lint": "eslint src/**/*.ts",
+    "format": "prettier --write \"src/**/*.{ts,js,json,md}\"",
+    "docs": "typedoc src/",
+    "validate": "node dist/cli.js validate",
+    "sync": "node dist/cli.js sync",
+    "prepublishOnly": "npm run build && npm test --if-present",
+    "release:tag": "npm version patch -m \"chore(release): v%s\""
+  },
+  "keywords": [
+    "sbep",
+    "ai-agent",
+    "governance",
+    "devops",
+    "automation",
+    "protocol",
+    "deployment",
+    "documentation"
+  ],
+  "author": "Jamie McRaney <jamie@oneclick.agency>",
+  "license": "MIT",
+  "repository": "github:that-guy-jamie/devops-monkee",
+  "bugs": {
+    "url": "https://github.com/that-guy-jamie/devops-monkee/issues",
+    "email": "jamie@oneclick.agency"
+  },
+  "homepage": "https://github.com/that-guy-jamie/devops-monkee",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "commander": "^11.1.0",
+    "fs-extra": "^11.1.1",
+    "glob": "^10.3.10",
+    "inquirer": "^9.2.12",
+    "js-yaml": "^4.1.0",
+    "semver": "^7.5.4"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.4",
+    "@types/glob": "^8.1.0",
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "^20.8.7",
+    "@types/semver": "^7.5.4",
+    "@typescript-eslint/eslint-plugin": "^6.8.0",
+    "@typescript-eslint/parser": "^6.8.0",
+    "eslint": "^8.51.0",
+    "jest": "^29.7.0",
+    "prettier": "^3.0.3",
+    "ts-jest": "^29.1.1",
+    "typedoc": "^0.25.1",
+    "typescript": "^5.2.2"
+  },
+  "files": [
+    "dist/",
+    "templates/",
+    "docs/",
+    "README.md",
+    "LICENSE",
+    "!**/*.test.*",
+    "!**/*.spec.*"
+  ]
+}
+
