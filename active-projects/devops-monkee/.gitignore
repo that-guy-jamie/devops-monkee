@@ -62,3 +62,11 @@ synchronizer.ts.backup
 *-backup.*
 *.backup
 
+# Security incident documentation (NEVER commit)
+*EXPOSED_SECRETS*
+*SECURITY_INCIDENT*
+*HOW_SECRETS_GOT_EXPOSED*
+secrets.txt
+clean_secret.*
+replace_secret.*
+
