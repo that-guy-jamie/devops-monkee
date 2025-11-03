@@ -50,9 +50,11 @@ await sync.sync(process.cwd());
 
 ## Documentation
 
+- [What is SBEP?](./docs/WHAT-IS-SBEP.md) - Understanding the Source-Bound Execution Protocol
+- [Usage Examples](./docs/USAGE-EXAMPLES.md) - Practical examples and use cases
+- [SBEP Security Guidelines](./docs/SBEP-SECURITY-GUIDELINES.md) - Security best practices
 - [Installation Troubleshooting](./NPX-DOPM-INSTALLATION-TROUBLESHOOTING.md)
 - [SBEP Test Implementation Guide](./DEVOPS-MONKEE-TEST-IMPLEMENTATION-PROMPT.md)
-- [SBEP Security Guidelines](./docs/SBEP-SECURITY-GUIDELINES.md)
 
 ## Resources
 
