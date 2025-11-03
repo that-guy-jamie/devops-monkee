@@ -18,10 +18,7 @@ jobs:
           node-version: 20
           registry-url: https://registry.npmjs.org
       - run: npm ci
-<<<<<<< HEAD
       - run: npm audit --audit-level=moderate
-=======
->>>>>>> 41e971cfbafe933760adf732192c464902186c45
       - run: npm run build
       - run: npm test --if-present
       - run: npm publish --provenance --access public
