@@ -74,6 +74,30 @@ DevOps Monkee uses **npm Trusted Publishing** with provenance.
 
 **Never** run `npm publish` locally. CI handles it.
 
-## Security
+## Security Guidelines
 
 Please see **SECURITY.md** for how to report vulnerabilities.
+
+### Development Security
+
+When contributing code:
+
+- **Never commit secrets** - Use environment variables or placeholders (`"CHANGE_ME"`)
+- **Validate inputs** - All file paths and user inputs must be validated
+- **Sanitize logs** - Never log sensitive information
+- **Use secure parsing** - Use safe YAML/JSON parsing methods
+- **Review before commit** - Check for hardcoded credentials or secrets
+
+For comprehensive security practices, see [SBEP Security Guidelines](./docs/SBEP-SECURITY-GUIDELINES.md).
+
+### Pre-Commit Checks
+
+Consider installing pre-commit hooks for secret detection:
+
+```bash
+# Install gitleaks (recommended)
+brew install gitleaks
+
+# Add to .git/hooks/pre-commit
+gitleaks protect --staged --verbose
+```

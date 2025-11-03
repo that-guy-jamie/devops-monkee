@@ -1,6 +1,6 @@
 {
   "name": "devops-monkee",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "DevOps Monkee — SBEP governance layer CLI + API for AI agent projects.",
   "type": "module",
   "main": "dist/index.js",

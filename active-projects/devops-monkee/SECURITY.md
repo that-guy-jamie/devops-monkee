@@ -21,3 +21,27 @@ We follow coordinated disclosure. Once a fix is available on npm, we'll publish 
 ## Safe Harbor
 
 Good-faith security research that follows this policy won't be considered a violation. Please avoid accessing data that isn't yours, and limit testing to your own environments.
+
+## Security Best Practices
+
+For comprehensive security guidelines, see [SBEP Security Guidelines](./docs/SBEP-SECURITY-GUIDELINES.md).
+
+### Key Principles
+
+1. **Never commit secrets** - Use environment variables exclusively
+2. **Default values are placeholders** - Never use real credentials as defaults
+3. **Always audit before release** - Scan for secrets, run dependency audits
+4. **Validate all inputs** - Prevent path traversal and command injection
+5. **Sanitize logs** - Never log sensitive information
+
+### Pre-Release Checklist
+
+Before publishing code or making repositories public:
+
+- [ ] Scan git history for secrets
+- [ ] Review configuration files
+- [ ] Verify no `.env` files tracked
+- [ ] Run dependency vulnerability scan
+- [ ] Clean git history if secrets found
+
+See [SBEP Security Guidelines](./docs/SBEP-SECURITY-GUIDELINES.md) for detailed practices and tools.

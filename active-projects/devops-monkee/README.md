@@ -1,6 +1,6 @@
 # DevOps Monkee 🐒 — SBEP governance layer for AI agents
 
-[![npm version](https://img.shields.io/npm/v/devops-monkee.svg)](https://www.npmjs.com/package/devops-monkee)
+[![npm version](https://img.shields.io/npm/v/devops-monkee.svg)](https://www.npmjs.com/package/devops-monkee) [![npm downloads](https://img.shields.io/npm/dm/devops-monkee.svg)](https://www.npmjs.com/package/devops-monkee)
 
 [![CI](https://github.com/that-guy-jamie/devops-monkee/actions/workflows/release.yml/badge.svg)](../../actions)
 
@@ -33,7 +33,7 @@ dopm abide . -validate   # SBEP compliance
 dopm abide . -audit      # Quality audit
 dopm abide . -docs       # Documentation check
 dopm abide . -test       # Testing verification
-dopm abide . -sync       # Version sync status
+dopm abide . -sync       # Version sync + repository status
 ```
 
 ## Programmatic API (ESM)
@@ -52,6 +52,7 @@ await sync.sync(process.cwd());
 
 - [Installation Troubleshooting](./NPX-DOPM-INSTALLATION-TROUBLESHOOTING.md)
 - [SBEP Test Implementation Guide](./DEVOPS-MONKEE-TEST-IMPLEMENTATION-PROMPT.md)
+- [SBEP Security Guidelines](./docs/SBEP-SECURITY-GUIDELINES.md)
 
 ## Resources
 
