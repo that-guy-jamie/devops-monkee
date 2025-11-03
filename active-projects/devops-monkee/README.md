@@ -76,9 +76,12 @@ const result = await secureExec('git', ['status'], { cwd: projectPath });
 
 ## Documentation
 
+- **[API Reference](./docs/api/)** - Complete API documentation
 - [What is SBEP?](./docs/WHAT-IS-SBEP.md) - Understanding the Source-Bound Execution Protocol
 - [Usage Examples](./docs/USAGE-EXAMPLES.md) - Practical examples and use cases
 - [SBEP Security Guidelines](./docs/SBEP-SECURITY-GUIDELINES.md) - Security best practices
+- [Release Process](./docs/RELEASE-PROCESS.md) - How to release new versions
+- [Tool Sharing Templates](./templates/README.md) - Examples of sharing tools across teams
 - [Installation Troubleshooting](./NPX-DOPM-INSTALLATION-TROUBLESHOOTING.md)
 - [SBEP Test Implementation Guide](./DEVOPS-MONKEE-TEST-IMPLEMENTATION-PROMPT.md)
 
