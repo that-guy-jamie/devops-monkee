@@ -74,6 +74,7 @@ DevOps Monkee uses **npm Trusted Publishing** with provenance.
 
 **Never** run `npm publish` locally. CI handles it.
 
+<<<<<<< HEAD
 ## Security Guidelines
 
 Please see **SECURITY.md** for how to report vulnerabilities.
@@ -101,3 +102,8 @@ brew install gitleaks
 # Add to .git/hooks/pre-commit
 gitleaks protect --staged --verbose
 ```
+=======
+## Security
+
+Please see **SECURITY.md** for how to report vulnerabilities.
+>>>>>>> 41e971cfbafe933760adf732192c464902186c45

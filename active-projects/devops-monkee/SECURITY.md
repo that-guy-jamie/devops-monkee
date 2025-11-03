@@ -21,6 +21,7 @@ We follow coordinated disclosure. Once a fix is available on npm, we'll publish 
 ## Safe Harbor
 
 Good-faith security research that follows this policy won't be considered a violation. Please avoid accessing data that isn't yours, and limit testing to your own environments.
+<<<<<<< HEAD
 
 ## Security Best Practices
 
@@ -45,3 +46,5 @@ Before publishing code or making repositories public:
 - [ ] Clean git history if secrets found
 
 See [SBEP Security Guidelines](./docs/SBEP-SECURITY-GUIDELINES.md) for detailed practices and tools.
+=======
+>>>>>>> 41e971cfbafe933760adf732192c464902186c45
