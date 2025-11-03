@@ -62,7 +62,11 @@ synchronizer.ts.backup
 *-backup.*
 *.backup
 
-# Security incident documentation (NEVER commit)
+# Corporate docs (moved to corporate-docs/ outside repo)
+# These are now in C:\Users\james\Desktop\Projects\corporate-docs\
+# See docs/CORPORATE-DOCS-PATTERN.md for pattern
+/corporate-docs/
+/../corporate-docs/
 *EXPOSED_SECRETS*
 *SECURITY_INCIDENT*
 *HOW_SECRETS_GOT_EXPOSED*
