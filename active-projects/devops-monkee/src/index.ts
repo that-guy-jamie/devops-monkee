@@ -40,6 +40,10 @@ export {
   ALLOWED_GIT_COMMANDS 
 } from './utils/secure-exec';
 
+// Tool Management (v1.3.0)
+export { ToolManager } from './governance/tool-manager';
+export type { ToolMetadata, ToolRegistry } from './governance/tool-manager';
+
 // Types
 export interface ValidationResult {
   score: number;

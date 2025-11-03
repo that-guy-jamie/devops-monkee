@@ -19,6 +19,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Secure command execution utilities for git operations
 - **SBEP Security Guidelines**: Comprehensive security best practices documentation
 - **Security Best Practices**: Integrated into SECURITY.md and CONTRIBUTING.md
+- **Tool Building Guidelines**: SBEP constitutional standards for tool building (Part of Constitution v2.2)
+- **Tool Management Foundation**: ToolManager class foundation for v1.3.0
+- **Tool Sharing Templates**: Examples showing how to share tools across teams
+- **API Documentation**: TypeDoc configuration for comprehensive API reference
 
 ### Enhanced
 - **Synchronizer**: Enhanced with repository status checking and remote update detection
