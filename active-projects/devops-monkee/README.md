@@ -48,6 +48,32 @@ const sync = new Synchronizer();
 await sync.sync(process.cwd());
 ```
 
+## Shared Utility Tools
+
+Import security and utility tools for use across your projects:
+
+```ts
+import { 
+  validatePath, 
+  sanitizeLog, 
+  secureExec 
+} from "devops-monkee";
+
+// Path validation (prevents path traversal)
+const safePath = validatePath(userInput, baseDirectory);
+
+// Log sanitization (redacts secrets)
+const safeLog = sanitizeLog(errorMessage);
+
+// Secure command execution (prevents injection)
+const result = await secureExec('git', ['status'], { cwd: projectPath });
+```
+
+**Available Tools:**
+- **Path Validation**: `validatePath`, `validateAndCheckPath`, `sanitizeFilename`
+- **Log Sanitization**: `sanitizeLog`, `sanitizeError`, `mightContainSecrets`
+- **Secure Execution**: `secureExec`, `isCommandAllowed`
+
 ## Documentation
 
 - [What is SBEP?](./docs/WHAT-IS-SBEP.md) - Understanding the Source-Bound Execution Protocol
