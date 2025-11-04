@@ -89,6 +89,7 @@ ops/
 plugin/
 scripts/
 src/
+corporate-docs/
 
 # Parent-level files that shouldn't be tracked
 .env.example
