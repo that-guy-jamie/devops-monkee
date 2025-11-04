@@ -125,7 +125,7 @@ DevOps Monkee is released as open source software under the MIT License. It was 
 
 ### Getting Involved
 
-- **GitHub**: [https://github.com/james-mcraney/devops-monkee](https://github.com/james-mcraney/devops-monkee)  
+- **GitHub**: [https://github.com/that-guy-jamie/devops-monkee](https://github.com/that-guy-jamie/devops-monkee)  
 - **Issues**: Report bugs and request features  
 - **Discussions**: Share ideas and get help  
 - **Contributions**: Pull requests welcome
@@ -150,7 +150,7 @@ The project focuses on real-world application within OneClickSEO.com while provi
 
 ## 🙏 Acknowledgments & Origins
 
-**DevOps Monkee** formalizes governance practices originally developed across multiple projects including:
+**DevOps Monkee** formalizes governance practices originally developed across multiple real-world projects:
 
 - **[ASTRO - the Association of Short-Term Rental Owners](https://theastro.org)**: WordPress-based membership platform
 - **Audit Monkee**: AI-powered auditing and compliance framework
@@ -175,7 +175,7 @@ The SBEP Protocol was born from real-world operational challenges faced during t
 
 ### Get Involved
 
-- **GitHub Repository**: [https://github.com/james-mcraney/devops-monkee](https://github.com/james-mcraney/devops-monkee)  
+- **GitHub Repository**: [https://github.com/that-guy-jamie/devops-monkee](https://github.com/that-guy-jamie/devops-monkee)  
 - **Issues & Features**: Open a GitHub issue  
 - **Contribute**: Submit pull requests  
 - **Documentation**: See the technical README.md for implementation details

@@ -106,7 +106,7 @@ devops-monkee init .
 devops-monkee validate .
 ```
 
-Visit our [GitHub repository](https://github.com/james-mcraney/devops-monkee) to get started, or check out the [documentation](https://docs.devops-monkee.dev) for detailed guides.
+Visit our [GitHub repository](https://github.com/that-guy-jamie/devops-monkee) to get started, or check out the [documentation](https://docs.devops-monkee.dev) for detailed guides.
 
 ## Join the Movement
 

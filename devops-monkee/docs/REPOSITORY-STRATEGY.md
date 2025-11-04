@@ -152,16 +152,16 @@ When using `devops-monkee` to validate SBEP compliance:
 2. **Private Repository**: Can also run validation, but results stay internal
 3. **Cross-Repository**: Maintain SBEP indexes in both repos as needed
 
-## Example: OneClickSEO Setup
+## Example: Organization Setup
 
-Our current setup demonstrates this pattern:
+A typical setup demonstrates this pattern:
 
 - **Public**: `github.com/that-guy-jamie/devops-monkee`
   - Open-source tool
   - Public documentation
   - Community examples
 
-- **Private**: `gitlab.com/deancaciopp0-group/sbep-protocol`
+- **Private**: `gitlab.com/your-org/sbep-protocol`
   - Detailed project documentation
   - Internal workflows
   - Proprietary client information

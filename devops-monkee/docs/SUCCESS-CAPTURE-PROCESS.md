@@ -61,24 +61,24 @@ When starting new project, reference successful tools:
 
 **Tool Location:** Private repo tools referenced from new project
 
-## Example: Ads Monkee Success Capture
+## Example: Successful Project Tool Capture
 
 ### Process (SBEP Validated - Private Repo Only)
 1. **Identify Success:** Project completed with 95% SBEP compliance (private)
-2. **Document Tools:** GHL validator, test data protection scanner, campaign health monitor (private)
+2. **Document Tools:** Custom validation tool, data protection scanner, system health monitor (private)
 3. **Extract Tools:** Package tools following SBEP structure (private)
-4. **Register:** Add to private `sds/SBEP-INDEX.yaml` in GitLab repo (private)
+4. **Register:** Add to private `sds/SBEP-INDEX.yaml` in internal repo (private)
 5. **Validate:** SBEP checks process was followed correctly (private validation)
 
 ### Tools (Private/Proprietary)
-- `tools/ghl-validator.ts` - Private GitLab repo
-- `tools/test-data-protection.ts` - Private GitLab repo  
-- `tools/campaign-health.ts` - Private GitLab repo
+- `tools/custom-validator.ts` - Internal private repo
+- `tools/data-protection-scanner.ts` - Internal private repo  
+- `tools/system-monitor.ts` - Internal private repo
 
 ### SBEP Validation (Process Only)
 ```bash
 # SBEP checks process was followed (in private repo)
-devops-monkee success:validate ./ads-monkee
+devops-monkee success:validate ./example-project
 
 # Validates (all private):
 # - Process documentation exists ✓
@@ -87,7 +87,7 @@ devops-monkee success:validate ./ads-monkee
 # - NO tool names/metadata exposed publicly ✓
 ```
 
-**Tool registry stays completely private** - only in GitLab `sbep-protocol` repo.
+**Tool registry stays completely private** - only in internal repo.
 
 ## SBEP Commands (Private Repo Only)
 

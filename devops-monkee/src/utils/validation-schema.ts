@@ -147,7 +147,11 @@ export class ValidationSchemaManager {
     }
 
     try {
-      this.schema = await fs.readJson(this.schemaPath);
+      const loadedSchema = await fs.readJson(this.schemaPath);
+      if (!loadedSchema) {
+        throw new Error('Schema file is empty or invalid');
+      }
+      this.schema = loadedSchema as ValidationSchema;
       return this.schema;
     } catch (error) {
       throw new Error(`Failed to load validation schema: ${error}`);

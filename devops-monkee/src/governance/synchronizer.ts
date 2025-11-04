@@ -3,7 +3,7 @@ import * as path from 'path';
 import * as glob from 'glob';
 import { VERSION_MANIFEST } from '../utils/version-manifest';
 import { logger } from '../utils/logger';
-import { SyncResult, VersionConflict } from '../index';
+import { SyncResult, VersionConflict } from '../types';
 import { ISynchronizer } from '../interfaces/tool-interfaces';
 
 export class Synchronizer implements ISynchronizer {

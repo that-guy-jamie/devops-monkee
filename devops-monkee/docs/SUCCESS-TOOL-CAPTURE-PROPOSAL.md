@@ -19,11 +19,11 @@ After a project succeeds with SBEP governance, DevOps Monkee should help capture
 
 ## Example Workflow
 
-### Project: Ads Monkee
+### Example Project
 **Success Factors Captured:**
-- Custom Google Ads API validation tool → becomes `@devops-monkee/tool-google-ads-validator`
-- Automated test data protection checks → becomes `@devops-monkee/tool-data-protection-scanner`
-- Celery task monitoring workflow → becomes `@devops-monkee/tool-celery-health-check`
+- Custom API validation tool → becomes reusable validator package
+- Automated data protection checks → becomes data protection scanner
+- Task monitoring workflow → becomes health check tool
 
 These get:
 1. Extracted from successful project
@@ -56,7 +56,7 @@ Extracts custom tools/scripts from a project and packages them for reuse.
 ### 3. Success Template Generator
 
 ```bash
-devops-monkee success:template ./ads-monkee --output ./templates/ads-platform-template
+devops-monkee success:template ./example-project --output ./templates/platform-template
 ```
 
 Creates a project template based on a successful project structure.
@@ -68,23 +68,23 @@ A registry of tools extracted from successful projects:
 - Searchable by project type, language, use case
 - Rated by success (how many projects used it successfully)
 
-## Real Example
+## Example Implementation
 
-**Project: Ads Monkee Success**
-- Built custom GHL file upload validator
+**Successful Project Pattern:**
+- Built custom file upload validator
 - Created automated test data protection checks
-- Developed campaign health monitoring
+- Developed system health monitoring
 
 **Captured Tools:**
-1. `tool-ghl-validator` - Validates GoHighLevel integrations
-2. `tool-test-data-protection` - Scans for proprietary data in tests
-3. `tool-campaign-health` - Monitors Google Ads campaign health
+1. `custom-validator` - Validates integrations
+2. `data-protection-scanner` - Scans for proprietary data in tests
+3. `system-health-monitor` - Monitors system health
 
 **Result:** Next similar project can:
 ```bash
-npm install @devops-monkee/tool-ghl-validator
-npm install @devops-monkee/tool-test-data-protection
-devops-monkee tool:register ./node_modules/@devops-monkee/tool-ghl-validator
+npm install @your-org/tool-custom-validator
+npm install @your-org/tool-data-protection
+devops-monkee tool:register ./node_modules/@your-org/tool-custom-validator
 ```
 
 ## Benefits

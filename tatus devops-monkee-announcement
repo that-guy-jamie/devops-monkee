@@ -1,0 +1,35 @@
+[33mtag v1.2.0[m
+Tagger: James McRaney <jamie@deanknows.com>
+Date:   Mon Nov 3 14:12:09 2025 -0600
+
+Release v1.2.0: Repository synchronization and security enhancements
+
+[33mcommit b7f589e61640298fd89cb70888459b270d129c02[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;33mtag: [m[1;33mv1.2.0[m[33m)[m
+Author: James McRaney <jamie@deanknows.com>
+Date:   Mon Nov 3 14:11:21 2025 -0600
+
+    feat: repository synchronization and security enhancements
+    
+    - Added repository status checking to Synchronizer
+    - Detects remote updates and compares local vs remote branches
+    - Created security utilities: path validation, log sanitization, secure exec
+    - Added SBEP Security Guidelines documentation
+    - Enhanced CI/CD with dependency vulnerability scanning
+    - Updated documentation with security best practices
+    - Version bump to 1.2.0
+
+ .../devops-monkee/.github/workflows/release.yml    |   1 [32m+[m
+ active-projects/devops-monkee/.gitignore           |  64 [32m++++[m
+ active-projects/devops-monkee/CHANGELOG.md         |  48 [32m+++[m
+ active-projects/devops-monkee/CONTRIBUTING.md      |  26 [32m+[m[31m-[m
+ active-projects/devops-monkee/README.md            |   5 [32m+[m[31m-[m
+ active-projects/devops-monkee/SECURITY.md          |  24 [32m++[m
+ .../devops-monkee/docs/SBEP-SECURITY-GUIDELINES.md | 157 [32m++++++++++[m
+ active-projects/devops-monkee/package.json         |   2 [32m+[m[31m-[m
+ .../devops-monkee/src/governance/synchronizer.ts   | 340 [32m+++++++++++++++++++++[m
+ active-projects/devops-monkee/src/index.ts         | 104 [32m+++++++[m
+ .../src/interfaces/tool-interfaces.ts              | 112 [32m+++++++[m
+ .../devops-monkee/src/utils/log-sanitizer.ts       |  93 [32m++++++[m
+ .../devops-monkee/src/utils/path-validator.ts      |  74 [32m+++++[m
+ .../devops-monkee/src/utils/secure-exec.ts         | 115 [32m+++++++[m
+ 14 files changed, 1161 insertions(+), 4 deletions(-)

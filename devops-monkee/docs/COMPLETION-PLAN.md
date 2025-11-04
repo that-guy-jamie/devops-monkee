@@ -187,7 +187,7 @@ Before pushing to GitHub:
 ## Git Workflow
 
 ### Current State
-- Changes are in GitLab (`gitlab.com:deancaciopp0-group/sbep-protocol`)
+- Changes are in GitLab (`gitlab.com:your-org/sbep-protocol`) (internal only)
 - Some work completed, needs finishing
 - Testing should happen in GitLab first
 
@@ -226,7 +226,7 @@ Before pushing to GitHub:
 ## Quick Reference
 
 **Git Remotes:**
-- `origin` = GitLab (private): `git@gitlab.com:deancaciopp0-group/sbep-protocol.git`
+- `origin` = GitLab (private): `git@gitlab.com:your-org/sbep-protocol.git`
 - `github` = GitHub (public): `https://github.com/that-guy-jamie/devops-monkee.git`
 
 **Commands:**

@@ -134,7 +134,7 @@ const config = await ConfigLoader.loadConfig('./project');
 - ✅ All changes committed
 - ✅ All changes pushed
 - ✅ Ready for testing
-- **Location:** `gitlab.com:deancaciopp0-group/sbep-protocol`
+- **Location:** `gitlab.com:your-org/sbep-protocol` (internal only)
 
 **GitHub (Public - Release):**
 - ⏸️ Waiting for internal testing

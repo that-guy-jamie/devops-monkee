@@ -158,7 +158,7 @@ program
       logger.info(`Initializing SBEP governance for: ${path}`);
 
       const governor = new Governor();
-      await governor.initializeProject(path, options);
+      await governor.init(path, options);
 
       logger.success('✅ SBEP governance initialized!');
       logger.info('Next steps:');

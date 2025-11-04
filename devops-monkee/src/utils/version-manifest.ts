@@ -26,6 +26,7 @@ export interface VersionInfo {
   previous?: string;
   released: string;
   status: 'stable' | 'beta' | 'deprecated';
+  last_sync?: string;
 }
 
 export interface CompatibilityInfo {
@@ -106,7 +107,11 @@ export class VersionManifestManager {
     }
 
     try {
-      this.manifest = await fs.readJson(this.manifestPath);
+      const loadedManifest = await fs.readJson(this.manifestPath);
+      if (!loadedManifest) {
+        throw new Error('Manifest file is empty or invalid');
+      }
+      this.manifest = loadedManifest as VersionManifest;
       return this.manifest;
     } catch (error) {
       throw new Error(`Failed to load version manifest: ${error}`);

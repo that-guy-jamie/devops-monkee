@@ -5,7 +5,7 @@ import { Synchronizer } from './synchronizer';
 import { Auditor } from './auditor';
 import { VERSION_MANIFEST } from '../utils/version-manifest';
 import { logger } from '../utils/logger';
-import { GovernanceStatus } from '../index';
+import { GovernanceStatus } from '../types';
 import { IGovernor } from '../interfaces/tool-interfaces';
 
 export interface GovernanceViolation {
@@ -113,7 +113,7 @@ export class Governor implements IGovernor {
     }
   }
 
-  async initializeProject(projectPath: string, options: any = {}): Promise<void> {
+  async init(projectPath: string, options: any = {}): Promise<void> {
     const progress = logger.startProgress('Initializing SBEP governance');
 
     try {

@@ -2,7 +2,7 @@ import * as fs from 'fs-extra';
 import * as path from 'path';
 import { VALIDATION_SCHEMA } from '../utils/validation-schema';
 import { logger } from '../utils/logger';
-import { AuditResult, AuditCategory } from '../index';
+import { AuditResult, AuditCategory } from '../types';
 import { IAuditor } from '../interfaces/tool-interfaces';
 
 export class Auditor implements IAuditor {
@@ -115,7 +115,7 @@ export class Auditor implements IAuditor {
     let score = 100;
 
     const schema = await VALIDATION_SCHEMA.loadSchema();
-    const metrics = schema.quality_metrics.documentation_completeness;
+    const metrics = schema.validation_rules.quality_metrics.documentation_completeness;
 
     // Check README completeness
     const readmePath = path.join(projectPath, 'README.md');
@@ -175,7 +175,7 @@ export class Auditor implements IAuditor {
     let score = 100;
 
     const schema = await VALIDATION_SCHEMA.loadSchema();
-    const standards = schema.quality_metrics.consistency_checks;
+    const standards = schema.validation_rules.quality_metrics.consistency_checks;
 
     // Check terminology standardization
     const docsPath = path.join(projectPath, 'sds');
@@ -458,15 +458,19 @@ export class Auditor implements IAuditor {
   }
 
   async saveResults(results: AuditResult, outputPath: string): Promise<void> {
+    await this.generateReport(results, outputPath);
+  }
+
+  async generateReport(result: AuditResult, outputPath: string): Promise<void> {
     const report = {
-      timestamp: results.timestamp.toISOString(),
+      timestamp: result.timestamp.toISOString(),
       summary: {
-        overall_score: results.score,
-        categories_audited: results.categories.length,
-        total_issues: results.categories.reduce((sum, cat) => sum + cat.issues.length, 0),
-        total_recommendations: results.categories.reduce((sum, cat) => sum + cat.recommendations.length, 0)
+        overall_score: result.score,
+        categories_audited: result.categories.length,
+        total_issues: result.categories.reduce((sum, cat) => sum + cat.issues.length, 0),
+        total_recommendations: result.categories.reduce((sum, cat) => sum + cat.recommendations.length, 0)
       },
-      categories: results.categories
+      categories: result.categories
     };
 
     await fs.writeJson(outputPath, report, { spaces: 2 });

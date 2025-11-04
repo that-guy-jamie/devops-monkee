@@ -4,30 +4,37 @@ import * as glob from 'glob';
 import { VALIDATION_SCHEMA, ValidationSchema } from '../utils/validation-schema';
 import { VERSION_MANIFEST } from '../utils/version-manifest';
 import { logger } from '../utils/logger';
-import { ValidationResult, ValidationIssue } from '../index';
+import { ValidationResult, ValidationIssue } from '../types';
 import { ConfigLoader } from '../utils/config-loader';
 import { IValidator } from '../interfaces/tool-interfaces';
 
 export class Validator implements IValidator {
-  private schema: ValidationSchema = VALIDATION_SCHEMA;
+  private schemaManager = VALIDATION_SCHEMA;
+  private schema: ValidationSchema | null = null;
   
   /**
    * Load schema from project config or use default
    */
   private async loadSchema(projectPath: string): Promise<ValidationSchema> {
+    if (this.schema) {
+      return this.schema;
+    }
+    
     const customSchemaPath = await ConfigLoader.getCustomSchemaPath(projectPath);
     
     if (customSchemaPath) {
       try {
         const customSchema = await fs.readJson(customSchemaPath);
         logger.info(`Using custom validation schema from: ${customSchemaPath}`);
-        return customSchema as ValidationSchema;
+        this.schema = customSchema as ValidationSchema;
+        return this.schema;
       } catch (error) {
         logger.warn(`Failed to load custom schema, using default:`, error);
       }
     }
     
-    return VALIDATION_SCHEMA;
+    this.schema = await this.schemaManager.loadSchema();
+    return this.schema;
   }
 
   async validate(projectPath: string, options: any = {}): Promise<ValidationResult> {
@@ -65,7 +72,7 @@ export class Validator implements IValidator {
     issues.push(...exceptionScore.issues);
 
     const score = Math.round(totalScore);
-    const grade = this.calculateGrade(score);
+    const grade = await this.calculateGrade(score, projectPath);
 
     const result: ValidationResult = {
       score,
@@ -89,8 +96,9 @@ export class Validator implements IValidator {
     const issues: ValidationIssue[] = [];
     let score = 100;
 
+    const schema = await this.loadSchema(projectPath);
     // Check required files
-    for (const requiredFile of this.schema.validation_rules.document_structure.required_files) {
+    for (const requiredFile of schema.validation_rules.document_structure.required_files) {
       const filePath = path.join(projectPath, requiredFile.path);
 
       if (!await fs.pathExists(filePath)) {
@@ -158,7 +166,8 @@ export class Validator implements IValidator {
 
     // Validate version format and consistency
     const manifest = await fs.readJson(manifestPath);
-    const currentVersions = VERSION_MANIFEST.versions;
+    const loadedManifest = await VERSION_MANIFEST.loadManifest();
+    const currentVersions = loadedManifest.versions;
 
     // Check protocol version
     if (manifest.versions?.protocol?.current !== currentVersions.protocol.current) {
@@ -174,13 +183,14 @@ export class Validator implements IValidator {
 
     // Check semantic versioning
     const semverPattern = /^\d+\.\d+\.\d+$/;
-    for (const [component, version] of Object.entries(manifest.versions?.components || {})) {
-      if (typeof version === 'object' && 'current' in version) {
-        if (!semverPattern.test(version.current)) {
+    for (const [component, versionInfo] of Object.entries(manifest.versions?.components || {})) {
+      if (versionInfo && typeof versionInfo === 'object' && 'current' in versionInfo) {
+        const version = (versionInfo as any).current;
+        if (typeof version === 'string' && !semverPattern.test(version)) {
           issues.push({
             severity: 'medium',
             category: 'version_consistency',
-            message: `Invalid semantic version for ${component}: ${version.current}`,
+            message: `Invalid semantic version for ${component}: ${version}`,
             file: 'VERSION-MANIFEST.json'
           });
           score -= 5;
@@ -195,7 +205,7 @@ export class Validator implements IValidator {
     const issues: ValidationIssue[] = [];
     let score = 100;
 
-    const metrics = this.schema.quality_metrics;
+    const metrics = (await this.loadSchema(projectPath)).validation_rules.quality_metrics;
 
     // Check documentation completeness
     const readmePath = path.join(projectPath, 'README.md');
@@ -303,7 +313,8 @@ export class Validator implements IValidator {
     const issues: ValidationIssue[] = [];
     let score = 100;
 
-    const requiredPolicies = this.schema.validation_rules.exception_policy_compliance.required_policies;
+    const schema = await this.loadSchema(projectPath);
+    const requiredPolicies = schema.validation_rules.exception_policy_compliance.required_policies;
 
     for (const policy of requiredPolicies) {
       const policyPath = path.join(projectPath, 'SBEP_Core', 'EXCEPTION-POLICIES', `${policy}.md`);
@@ -319,7 +330,7 @@ export class Validator implements IValidator {
       } else {
         // Validate policy structure
         const content = await fs.readFile(policyPath, 'utf-8');
-        const structure = this.schema.validation_rules.exception_policy_compliance.policy_structure;
+        const structure = schema.validation_rules.exception_policy_compliance.policy_structure;
 
         for (const [section, required] of Object.entries(structure)) {
           if (required && !content.includes(`## ${section.charAt(0).toUpperCase() + section.slice(1)}`)) {
@@ -338,8 +349,9 @@ export class Validator implements IValidator {
     return { score: Math.max(0, score), issues };
   }
 
-  private calculateGrade(score: number): 'A' | 'B' | 'C' | 'D' | 'F' {
-    const thresholds = this.schema.scoring_system.grade_thresholds;
+  private async calculateGrade(score: number, projectPath: string): Promise<'A' | 'B' | 'C' | 'D' | 'F'> {
+    const schema = await this.loadSchema(projectPath);
+    const thresholds = schema.scoring_system.grade_thresholds;
     if (score >= thresholds.A.min) return 'A';
     if (score >= thresholds.B.min) return 'B';
     if (score >= thresholds.C.min) return 'C';
