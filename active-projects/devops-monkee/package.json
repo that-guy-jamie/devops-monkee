@@ -1,5 +1,5 @@
 {
-  "name": "devops-monkee",
+  "name": "@oneclickseo/devops-monkee",
   "version": "1.2.0",
   "description": "DevOps Monkee — SBEP governance layer CLI + API for AI agent projects.",
   "type": "module",
