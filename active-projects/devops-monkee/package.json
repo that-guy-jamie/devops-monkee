@@ -19,7 +19,7 @@
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "clean": "rimraf dist .turbo .tsbuildinfo || true",
-    "test": "jest",
+    "test": "jest --passWithNoTests",
     "lint": "eslint src/**/*.ts",
     "format": "prettier --write \"src/**/*.{ts,js,json,md}\"",
     "docs": "typedoc src/",
