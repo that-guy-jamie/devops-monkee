@@ -1,10 +1,13 @@
 // Tool Interfaces for Plugin Architecture
 // These interfaces allow tools to be replaced with custom implementations
 
-import { ValidationResult, ValidationIssue } from '../index';
-import { SyncResult, VersionConflict } from '../index';
-import { AuditResult, AuditCategory } from '../index';
-import { GovernanceStatus } from '../index';
+import { ValidationResult, ValidationIssue } from '../types';
+import { SyncResult, VersionConflict } from '../types';
+import { AuditResult, AuditCategory } from '../types';
+import { GovernanceStatus } from '../types';
+
+// Re-export types for convenience
+export type { ValidationResult, ValidationIssue, SyncResult, VersionConflict, AuditResult, AuditCategory, GovernanceStatus };
 
 /**
  * Interface for validators

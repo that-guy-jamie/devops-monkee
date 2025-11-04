@@ -2,7 +2,8 @@
  * Governor - Provides overall governance oversight
  */
 
-import { IGovernor, GovernanceStatus } from '../interfaces/tool-interfaces';
+import { IGovernor } from '../interfaces/tool-interfaces';
+import { GovernanceStatus } from '../types';
 import { logger } from '../utils/logger';
 import { validatePath } from '../utils/path-validator';
 import { VERSION_MANIFEST } from '../utils/version-manifest';

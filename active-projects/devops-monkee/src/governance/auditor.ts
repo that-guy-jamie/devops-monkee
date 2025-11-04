@@ -2,7 +2,8 @@
  * Auditor - Performs comprehensive governance audits
  */
 
-import { IAuditor, AuditResult, AuditCategory } from '../interfaces/tool-interfaces';
+import { IAuditor } from '../interfaces/tool-interfaces';
+import { AuditResult, AuditCategory } from '../types';
 import { logger } from '../utils/logger';
 import { validatePath } from '../utils/path-validator';
 

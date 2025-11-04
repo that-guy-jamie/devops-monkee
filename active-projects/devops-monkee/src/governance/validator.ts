@@ -2,7 +2,8 @@
  * Validator - Validates SBEP compliance
  */
 
-import { IValidator, ValidationResult, ValidationIssue } from '../interfaces/tool-interfaces';
+import { IValidator } from '../interfaces/tool-interfaces';
+import { ValidationResult, ValidationIssue } from '../types';
 import { VALIDATION_SCHEMA } from '../utils/validation-schema';
 import { logger } from '../utils/logger';
 import { validatePath } from '../utils/path-validator';

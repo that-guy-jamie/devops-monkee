@@ -44,57 +44,16 @@ export {
 export { ToolManager } from './governance/tool-manager';
 export type { ToolMetadata, ToolRegistry } from './governance/tool-manager';
 
-// Types
-export interface ValidationResult {
-  score: number;
-  grade: 'A' | 'B' | 'C' | 'D' | 'F';
-  issues: ValidationIssue[];
-  recommendations: string[];
-}
-
-export interface ValidationIssue {
-  severity: 'critical' | 'high' | 'medium' | 'low';
-  category: string;
-  message: string;
-  file?: string;
-  line?: number;
-  autoFixable?: boolean;
-}
-
-export interface SyncResult {
-  updated: number;
-  skipped: number;
-  conflicts: VersionConflict[];
-}
-
-export interface VersionConflict {
-  file: string;
-  current: string;
-  target: string;
-  resolution?: 'update' | 'skip' | 'manual';
-}
-
-export interface AuditResult {
-  score: number;
-  categories: AuditCategory[];
-  timestamp: Date;
-}
-
-export interface AuditCategory {
-  name: string;
-  score: number;
-  issues: string[];
-  recommendations: string[];
-}
-
-export interface GovernanceStatus {
-  protocolVersion: string;
-  governanceVersion: string;
-  complianceScore: number;
-  lastAudit?: Date;
-  trackedFiles: number;
-  issues: string[];
-}
+// Types - re-export from types file
+export type {
+  ValidationResult,
+  ValidationIssue,
+  SyncResult,
+  VersionConflict,
+  AuditResult,
+  AuditCategory,
+  GovernanceStatus
+} from './types';
 
 // Constants
 export const GOVERNANCE_VERSION = '1.0.0';
@@ -110,18 +69,23 @@ export function getProtocolVersion(): string {
   return PROTOCOL_VERSION;
 }
 
-export function createValidator(): Validator {
-  return new Validator();
+import { Validator as ValidatorClass } from './governance/validator';
+import { Synchronizer as SynchronizerClass } from './governance/synchronizer';
+import { Auditor as AuditorClass } from './governance/auditor';
+import { Governor as GovernorClass } from './governance/governor';
+
+export function createValidator(): ValidatorClass {
+  return new ValidatorClass();
 }
 
-export function createSynchronizer(): Synchronizer {
-  return new Synchronizer();
+export function createSynchronizer(): SynchronizerClass {
+  return new SynchronizerClass();
 }
 
-export function createAuditor(): Auditor {
-  return new Auditor();
+export function createAuditor(): AuditorClass {
+  return new AuditorClass();
 }
 
-export function createGovernor(): Governor {
-  return new Governor();
+export function createGovernor(): GovernorClass {
+  return new GovernorClass();
 }
