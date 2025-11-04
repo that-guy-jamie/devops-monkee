@@ -1,0 +1,19 @@
+# PUBLISH PROCESS - NEVER FORGET AGAIN
+
+## The 3 Commands
+```bash
+npm version patch  # or minor, or major
+npm run build
+npm publish
+```
+
+## Full Example
+```bash
+cd C:\Users\james\Desktop\Projects\devops-monkee
+npm version 1.1.2
+npm run build
+npm publish
+```
+
+THAT'S IT.
+

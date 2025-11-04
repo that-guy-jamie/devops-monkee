@@ -40,7 +40,10 @@
   ],
   "author": "Jamie McRaney <jamie@oneclick.agency>",
   "license": "MIT",
-  "repository": "github:that-guy-jamie/devops-monkee",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/that-guy-jamie/devops-monkee.git"
+  },
   "bugs": {
     "url": "https://github.com/that-guy-jamie/devops-monkee/issues",
     "email": "jamie@oneclick.agency"
@@ -86,4 +89,3 @@
     "!**/*.spec.*"
   ]
 }
-

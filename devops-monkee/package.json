@@ -1,6 +1,6 @@
 {
   "name": "devops-monkee",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "description": "SBEP Protocol Governance Layer - A governance framework for AI agent development that ensures quality, safety, and professionalism",
   "main": "dist/index.js",
   "bin": {

@@ -21,6 +21,29 @@ export { VERSION_MANIFEST } from './utils/version-manifest';
 export { VALIDATION_SCHEMA } from './utils/validation-schema';
 export { logger } from './utils/logger';
 
+// Shared utility tools for team use
+export { 
+  validatePath, 
+  validateAndCheckPath, 
+  sanitizeFilename 
+} from './utils/path-validator';
+
+export { 
+  sanitizeLog, 
+  sanitizeError, 
+  mightContainSecrets 
+} from './utils/log-sanitizer';
+
+export { 
+  secureExec, 
+  isCommandAllowed,
+  ALLOWED_GIT_COMMANDS 
+} from './utils/secure-exec';
+
+// Tool Management (v1.3.0)
+export { ToolManager } from './governance/tool-manager';
+export type { ToolMetadata, ToolRegistry } from './governance/tool-manager';
+
 // Types - re-export from types file
 export type {
   ValidationResult,

@@ -5,20 +5,36 @@ import { VERSION_MANIFEST } from '../utils/version-manifest';
 import { logger } from '../utils/logger';
 import { SyncResult, VersionConflict } from '../types';
 import { ISynchronizer } from '../interfaces/tool-interfaces';
+import { validatePath } from '../utils/path-validator';
+import { sanitizeLog } from '../utils/log-sanitizer';
+import { secureExec } from '../utils/secure-exec';
 
 export class Synchronizer implements ISynchronizer {
   async sync(projectPath: string, options: any = {}): Promise<SyncResult> {
     const progress = logger.startProgress('Version synchronization');
 
     try {
+      // Validate project path
+      const validatedPath = validatePath(projectPath);
+      
+      progress.update('Checking repository status');
+      const repoStatus = await this.checkRepositoryStatus(validatedPath);
+      
+      if (repoStatus.hasRemoteUpdates && !options.ignoreRemote) {
+        logger.info(`Remote updates available: ${repoStatus.remoteBranch} is ${repoStatus.commitsBehind} commits behind`);
+        if (!options.autoPull) {
+          logger.warn('Use --auto-pull to automatically sync remote updates');
+        }
+      }
+
       progress.update('Loading version manifest');
       const manifest = await VERSION_MANIFEST.loadManifest();
 
       progress.update('Scanning project files');
-      const projectFiles = await this.scanProjectFiles(projectPath);
+      const projectFiles = await this.scanProjectFiles(validatedPath);
 
       progress.update('Analyzing version references');
-      const conflicts = await this.analyzeVersionReferences(projectFiles, manifest, projectPath);
+      const conflicts = await this.analyzeVersionReferences(projectFiles, manifest, validatedPath);
 
       let updated = 0;
 
@@ -32,7 +48,7 @@ export class Synchronizer implements ISynchronizer {
       }
 
       progress.update('Synchronizing versions');
-      updated = await this.applyVersionUpdates(conflicts, projectPath, options.dryRun);
+      updated = await this.applyVersionUpdates(conflicts, validatedPath, options.dryRun);
 
       progress.complete(`synchronized ${updated} files`);
       return {
@@ -41,8 +57,61 @@ export class Synchronizer implements ISynchronizer {
         conflicts: []
       };
     } catch (error) {
-      progress.fail(error instanceof Error ? error.message : 'Unknown error');
+      const safeError = sanitizeLog(error instanceof Error ? error.message : 'Unknown error');
+      progress.fail(safeError);
       throw error;
+    }
+  }
+
+  /**
+   * Check git repository for remote updates
+   */
+  private async checkRepositoryStatus(projectPath: string): Promise<{
+    hasRemoteUpdates: boolean;
+    remoteBranch: string;
+    commitsBehind: number;
+    commitsAhead: number;
+  }> {
+    try {
+      // Verify this is a git repository
+      const gitRoot = await secureExec('git', ['rev-parse', '--show-toplevel'], { cwd: projectPath });
+      if (!gitRoot.success || !gitRoot.stdout) {
+        return { hasRemoteUpdates: false, remoteBranch: '', commitsBehind: 0, commitsAhead: 0 };
+      }
+
+      // Fetch remote updates (read-only operation)
+      await secureExec('git', ['fetch', '--dry-run'], { cwd: projectPath });
+
+      // Get current branch
+      const branchResult = await secureExec('git', ['rev-parse', '--abbrev-ref', 'HEAD'], { cwd: projectPath });
+      const currentBranch = branchResult.stdout?.trim() || 'main';
+
+      // Check if branch has upstream
+      const upstreamResult = await secureExec('git', ['rev-parse', '--abbrev-ref', '--symbolic-full-name', '@{u}'], { cwd: projectPath });
+      if (!upstreamResult.success) {
+        return { hasRemoteUpdates: false, remoteBranch: currentBranch, commitsBehind: 0, commitsAhead: 0 };
+      }
+
+      const remoteBranch = upstreamResult.stdout?.trim() || currentBranch;
+
+      // Compare local vs remote
+      const compareResult = await secureExec('git', ['rev-list', '--left-right', '--count', `${currentBranch}...${remoteBranch}`], { cwd: projectPath });
+      
+      if (compareResult.success && compareResult.stdout) {
+        const [ahead, behind] = compareResult.stdout.trim().split('\t').map(Number);
+        return {
+          hasRemoteUpdates: behind > 0,
+          remoteBranch,
+          commitsBehind: behind || 0,
+          commitsAhead: ahead || 0
+        };
+      }
+
+      return { hasRemoteUpdates: false, remoteBranch, commitsBehind: 0, commitsAhead: 0 };
+    } catch (error) {
+      // If git operations fail, continue without repository checking
+      logger.debug(`Repository check failed: ${sanitizeLog(error instanceof Error ? error.message : 'Unknown error')}`);
+      return { hasRemoteUpdates: false, remoteBranch: '', commitsBehind: 0, commitsAhead: 0 };
     }
   }
 
@@ -84,13 +153,13 @@ export class Synchronizer implements ISynchronizer {
 
     for (const file of files) {
       try {
-        const filePath = path.join(projectPath, file);
-        const content = await fs.readFile(filePath, 'utf-8');
+        const validatedPath = validatePath(path.join(projectPath, file));
+        const content = await fs.readFile(validatedPath, 'utf-8');
         const fileConflicts = await this.checkFileForVersionIssues(content, file, manifest);
 
         conflicts.push(...fileConflicts);
       } catch (error) {
-        logger.debug(`Skipping file ${file}: ${error}`);
+        logger.debug(`Skipping file ${file}: ${sanitizeLog(error instanceof Error ? error.message : 'Unknown error')}`);
       }
     }
 
@@ -184,8 +253,8 @@ export class Synchronizer implements ISynchronizer {
     for (const conflict of conflicts) {
       if (conflict.resolution === 'update') {
         try {
-          const filePath = path.join(projectPath, conflict.file);
-          let content = await fs.readFile(filePath, 'utf-8');
+          const validatedPath = validatePath(path.join(projectPath, conflict.file));
+          let content = await fs.readFile(validatedPath, 'utf-8');
 
           // Replace version references
           content = content.replace(
@@ -194,13 +263,13 @@ export class Synchronizer implements ISynchronizer {
           );
 
           if (!dryRun) {
-            await fs.writeFile(filePath, content);
+            await fs.writeFile(validatedPath, content);
             logger.debug(`Updated ${conflict.file}: ${conflict.current} → ${conflict.target}`);
           }
 
           updated++;
         } catch (error) {
-          logger.warn(`Failed to update ${conflict.file}: ${error}`);
+          logger.warn(`Failed to update ${conflict.file}: ${sanitizeLog(error instanceof Error ? error.message : 'Unknown error')}`);
         }
       }
     }
@@ -209,9 +278,10 @@ export class Synchronizer implements ISynchronizer {
   }
 
   async validateSync(projectPath: string): Promise<{ valid: boolean; issues: string[] }> {
+    const validatedPath = validatePath(projectPath);
     const manifest = await VERSION_MANIFEST.loadManifest();
-    const files = await this.scanProjectFiles(projectPath);
-    const conflicts = await this.analyzeVersionReferences(files, manifest, projectPath);
+    const files = await this.scanProjectFiles(validatedPath);
+    const conflicts = await this.analyzeVersionReferences(files, manifest, validatedPath);
 
     return {
       valid: conflicts.length === 0,
@@ -220,9 +290,10 @@ export class Synchronizer implements ISynchronizer {
   }
 
   async createVersionReport(projectPath: string): Promise<any> {
+    const validatedPath = validatePath(projectPath);
     const manifest = await VERSION_MANIFEST.loadManifest();
-    const files = await this.scanProjectFiles(projectPath);
-    const conflicts = await this.analyzeVersionReferences(files, manifest, projectPath);
+    const files = await this.scanProjectFiles(validatedPath);
+    const conflicts = await this.analyzeVersionReferences(files, manifest, validatedPath);
 
     return {
       timestamp: new Date().toISOString(),
@@ -266,3 +337,4 @@ export class Synchronizer implements ISynchronizer {
     return '1.0.0';
   }
 }
+

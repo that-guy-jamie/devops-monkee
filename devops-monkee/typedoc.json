@@ -1,0 +1,19 @@
+{
+  "entryPoints": ["src/index.ts"],
+  "out": "docs/api",
+  "theme": "default",
+  "includeVersion": true,
+  "readme": "README.md",
+  "name": "DevOps Monkee API",
+  "excludePrivate": true,
+  "excludeProtected": true,
+  "excludeExternals": true,
+  "categorizeByGroup": true,
+  "categoryOrder": [
+    "Governance",
+    "Utilities",
+    "Interfaces",
+    "*"
+  ]
+}
+

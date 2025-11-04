@@ -1,258 +1,109 @@
 # Contributing to DevOps Monkee
 
-Thank you for your interest in contributing to DevOps Monkee! We welcome contributions from the community and are grateful for your help in making this project better.
+Thanks for helping make DevOps Monkee better! This doc covers local setup, coding standards, testing, and releases.
 
-## 🤝 Code of Conduct
+## Prereqs
 
-This project follows our [Code of Conduct](CODE_OF_CONDUCT.md). By participating, you agree to uphold this code.
+- Node.js **18+**
+- npm (comes with Node)
+- macOS/Linux/Windows supported
 
-## 🚀 Quick Start
-
-### Development Setup
-
-1. **Fork the repository** on GitHub
-2. **Clone your fork** locally:
-   ```bash
-   git clone https://github.com/your-username/devops-monkee.git
-   cd devops-monkee
-   ```
-
-3. **Install dependencies**:
-   ```bash
-   npm install
-   ```
-
-4. **Set up development environment**:
-   ```bash
-   npm run build
-   npm test
-   ```
-
-5. **Create a feature branch**:
-   ```bash
-   git checkout -b feature/your-feature-name
-   ```
-
-### Development Workflow
-
-1. **Make your changes**
-2. **Run tests**: `npm test`
-3. **Run linting**: `npm run lint`
-4. **Build the project**: `npm run build`
-5. **Validate governance**: `npm run validate`
-6. **Commit your changes** following conventional commits
-7. **Push to your fork**
-8. **Create a Pull Request**
-
-## 📝 Development Guidelines
-
-### Code Style
-
-- **TypeScript**: Strict type checking enabled
-- **ESLint**: Follow the configured linting rules
-- **Prettier**: Code formatting is enforced
-- **No Emojis in Code**: Emojis are forbidden in production code (allowed in documentation)
-
-### Commit Messages
-
-We use [Conventional Commits](https://conventionalcommits.org/) format:
-
-```
-type(scope): description
-
-[optional body]
-
-[optional footer]
-```
-
-Types:
-- `feat`: New feature
-- `fix`: Bug fix
-- `docs`: Documentation changes
-- `style`: Code style changes (formatting, etc.)
-- `refactor`: Code refactoring
-- `test`: Test additions/modifications
-- `chore`: Maintenance tasks
-
-Examples:
-```
-feat(governance): add new validation rule for SBEP compliance
-fix(cli): resolve issue with sync command on Windows
-docs(readme): update installation instructions
-```
-
-### Testing
-
-- **Unit Tests**: Required for all new functionality
-- **Integration Tests**: For CLI and API functionality
-- **Test Coverage**: Aim for 85%+ coverage
-- **Test Naming**: `describe('Component')` and `it('should do something')`
-
-### Documentation
-
-- **Code Comments**: Complex logic should be documented
-- **README Updates**: Update relevant documentation for user-facing changes
-- **API Documentation**: New public APIs must be documented
-- **Changelog**: User-facing changes should be documented in CHANGELOG.md
-
-## 🔧 Development Commands
+## Setup
 
 ```bash
-# Install dependencies
-npm install
-
-# Run tests
-npm test
-
-# Run tests in watch mode
-npm run test:watch
-
-# Run linting
-npm run lint
-
-# Format code
-npm run format
-
-# Build the project
+git clone https://github.com/that-guy-jamie/devops-monkee.git
+cd devops-monkee
+npm ci
 npm run build
-
-# Validate governance compliance
-npm run validate
-
-# Generate documentation
-npm run docs
-
-# Run all checks (lint + test + build)
-npm run ci
+npm test
 ```
 
-## 🏗️ Architecture Guidelines
+Run the CLI locally:
 
-### Project Structure
-
-```
-devops-monkee/
-├── src/
-│   ├── cli.ts                 # Command-line interface
-│   ├── index.ts              # Main exports
-│   ├── governance/           # Core governance components
-│   │   ├── validator.ts      # Compliance validation
-│   │   ├── synchronizer.ts   # Version synchronization
-│   │   ├── auditor.ts        # Quality auditing
-│   │   └── governor.ts       # Governance oversight
-│   └── utils/                # Shared utilities
-├── tests/                    # Test files
-├── docs/                     # Documentation
-├── templates/               # Project templates
-└── dist/                    # Built output (generated)
+```bash
+node dist/cli.js --help
+npx devops-monkee --help
+npx sbep --help
+npx dopm --help
 ```
 
-### SBEP Protocol Compliance
+## Coding Standards
 
-All contributions must maintain SBEP protocol compliance:
+* **TypeScript** (ESM)
+* **ESLint + Prettier**: `npm run lint` / `npm run format`
+* **Tests:** Jest — `npm test`
+* Keep `dist/` generated only by `npm run build`
+* Ensure `dist/cli.js` keeps the shebang (`#!/usr/bin/env node`)
 
-- **Self-Governing**: Code changes should not break governance rules
-- **Documentation First**: Changes must be well-documented
-- **Safety First**: Include appropriate error handling and validation
-- **Quality Standards**: Meet established code quality metrics
+## Conventional Commits
 
-### Exception Policies
+Please use Conventional Commits:
 
-For edge cases, follow these exception policies:
-- **EP-TOOL-001**: Tool failure exceptions
-- **EP-VAL-001**: Validation engine exceptions
-- **EP-SYNC-001**: Synchronization failures
+```
+feat(scope): add X
+fix(scope): handle Y
+chore(oss): docs, ci, config
+refactor(...), perf(...), test(...), docs(...), build(...)
+```
 
-## 📋 Pull Request Process
+## Branch & PR Flow
 
-### Before Submitting
+* Branch from `main`: `feat/…`, `fix/…`, `docs/…`
+* Open a PR with:
+  * What/why summary
+  * Screens/logs for CLI changes
+  * Tests if behavior changes
+* Passing CI required before merge
 
-1. **Self-Review**: Ensure your code follows the guidelines
-2. **Test Thoroughly**: All tests pass, new functionality tested
-3. **Documentation**: Updated relevant docs
-4. **Changelog**: Added entry if user-facing change
-5. **Governance**: Passes SBEP validation (`npm run validate`)
+## Releasing (Maintainers)
 
-### PR Template
+DevOps Monkee uses **npm Trusted Publishing** with provenance.
 
-Please use the PR template and fill out:
-- **Description**: What changes and why
-- **Type of Change**: Bug fix, feature, documentation, etc.
-- **Testing**: How you tested the changes
-- **Breaking Changes**: Any breaking changes?
-- **Screenshots**: UI changes (if applicable)
+1. Bump version & tag:
+   ```bash
+   npm run release:tag   # bumps patch with a conventional message
+   git push && git push --tags
+   ```
 
-### Review Process
+2. GitHub Actions builds/tests and runs:
+   ```bash
+   npm publish --provenance --access public
+   ```
 
-1. **Automated Checks**: CI must pass
-2. **Code Review**: At least one maintainer review
-3. **Testing**: Reviewer may request additional tests
-4. **Approval**: Maintainers approve and merge
+3. Verify the npm page.
 
-## 🎯 Types of Contributions
+**Never** run `npm publish` locally. CI handles it.
 
-### Code Contributions
-- Bug fixes
-- New features
-- Performance improvements
-- Code refactoring
+<<<<<<< HEAD
+## Security Guidelines
 
-### Documentation
-- README updates
-- API documentation
-- Tutorials and guides
-- Code comments
+Please see **SECURITY.md** for how to report vulnerabilities.
 
-### Testing
-- Unit tests
-- Integration tests
-- End-to-end tests
-- Test framework improvements
+### Development Security
 
-### Governance
-- SBEP protocol improvements
-- Validation rule enhancements
-- Exception policy updates
-- Quality metric refinements
+When contributing code:
 
-## 🚨 Issue Reporting
+- **Never commit secrets** - Use environment variables or placeholders (`"CHANGE_ME"`)
+- **Validate inputs** - All file paths and user inputs must be validated
+- **Sanitize logs** - Never log sensitive information
+- **Use secure parsing** - Use safe YAML/JSON parsing methods
+- **Review before commit** - Check for hardcoded credentials or secrets
 
-### Bug Reports
-- Use the bug report template
-- Include steps to reproduce
-- Provide environment details
-- Attach relevant logs
+For comprehensive security practices, see [SBEP Security Guidelines](./docs/SBEP-SECURITY-GUIDELINES.md).
 
-### Feature Requests
-- Use the feature request template
-- Describe the problem you're solving
-- Explain your proposed solution
-- Consider alternative approaches
+### Pre-Commit Checks
 
-### Security Issues
-- **DO NOT** create public issues for security vulnerabilities
-- Email security@devops-monkee.dev instead
-- See our [Security Policy](SECURITY.md) for details
+Consider installing pre-commit hooks for secret detection:
 
-## 🌟 Recognition
+```bash
+# Install gitleaks (recommended)
+brew install gitleaks
 
-Contributors are recognized through:
-- **GitHub Contributors**: Listed in repository contributors
-- **Changelog Credits**: Mentioned in release notes
-- **Community Recognition**: Featured in community updates
-- **Maintainer Status**: Top contributors may be invited to join the maintainer team
+# Add to .git/hooks/pre-commit
+gitleaks protect --staged --verbose
+```
+=======
+## Security
 
-## 📞 Getting Help
-
-- **Discussions**: Use GitHub Discussions for questions
-- **Documentation**: Check our comprehensive docs
-- **Community**: Join our community chat
-- **Support**: Contact support@devops-monkee.dev
-
-## 📝 License
-
-By contributing to DevOps Monkee, you agree that your contributions will be licensed under the same MIT License that covers the project.
-
----
-
-Thank you for contributing to DevOps Monkee! Your efforts help make AI development more reliable, scalable, and professional. 🚀
+Please see **SECURITY.md** for how to report vulnerabilities.
+>>>>>>> 41e971cfbafe933760adf732192c464902186c45

@@ -18,12 +18,18 @@ jobs:
           node-version: 20
           registry-url: https://registry.npmjs.org
       - name: Install dependencies
+        working-directory: active-projects/devops-monkee
         run: npm ci
       - name: Audit dependencies
+        working-directory: active-projects/devops-monkee
         run: npm audit --audit-level=moderate
       - name: Build
+        working-directory: active-projects/devops-monkee
         run: npm run build
       - name: Test
+        working-directory: active-projects/devops-monkee
         run: npm test --if-present
       - name: Publish to npm
+        working-directory: active-projects/devops-monkee
         run: npm publish --provenance --access public
+
